@@ -1,0 +1,193 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.legacy                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/22 12:30:14 by pabmart2          #+#    #+#             */
+/*   Updated: 2024/12/02 19:01:11 by pabmart2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf.h"
+#include "libft.h"
+#include <stdio.h>
+
+void	draw_matrix(int **matrix, size_t rows, size_t cols)
+{
+	for (size_t i = 0; i < rows; ++i)
+	{
+		for (size_t j = 0; j < cols; ++j)
+		{
+			printf("%d ", matrix[i][j]);
+		}
+		printf("\n");
+	}
+}
+/*
+t_vertex	*get_line_vertices(char *line, int y_pos)
+{
+	t_vertex	*line_vertices;
+	size_t		tkns;
+	int			i;
+	int			conversion;
+
+	tkns = ft_strtkns(line, " \n");
+	line_vertices = malloc(tkns * sizeof(t_vertex));
+	i = 0;
+	while (i < tkns)
+	{
+		while (*line && *line == ' ')
+			++line;
+		conversion = ft_atoi(line);
+		line_vertices[i].x = i;
+		line_vertices[i].y = y_pos;
+		line_vertices[i].z = ft_atoi(line);
+		printf("añadido punto con coordenadas: %d %d %d\n", line_vertices[i].x,
+			line_vertices[i].y, line_vertices[i].z);
+		while (*line && *line != ' ')
+			++line;
+		++i;
+	}
+	return (line_vertices);
+}
+
+t_vrts	populate_vrts(t_list **lst, size_t size_x)
+{
+	t_vrts		vrts;
+	t_vertex	*tmp_v;
+	size_t		len;
+	size_t		i;
+
+	vrts.size_x = size_x;
+	len = ft_lstsize(*lst);
+	vrts.size_y = len;
+	if (len > 2)
+		vrts.vertices = ft_memjoin(ft_lstindex(*lst, 0), size_x,
+				ft_lstindex(*lst, 1), size_x);
+	i = 2;
+	while (i < len)
+	{
+		tmp_v = vrts.vertices;
+		vrts.vertices = ft_memjoin(vrts.vertices, size_x * i, ft_lstindex(*lst,
+					i), size_x * i);
+		++i;
+	}
+	return (vrts);
+}*/
+
+t_vrts	read_file(char *path)
+{
+	int		fd;
+	char	*line;
+	t_list	*tmp_list;
+	size_t	size_x;
+	int		y_pos;
+
+	fd = open(path, O_RDONLY);
+	line = ft_get_next_line(fd);
+	tmp_list = NULL;
+	size_x = ft_strtkns(line, "  \n");
+	y_pos = 0;
+	while (line)
+	{
+		if (line)
+		{
+			if (!tmp_list)
+				tmp_list = ft_lstnew(get_line_vertices(line, y_pos));
+			else
+				ft_lstadd_back(&tmp_list, ft_lstnew(get_line_vertices(line,
+							y_pos)));
+		}
+		++y_pos;
+		line = ft_get_next_line(fd);
+	}
+	return (populate_vrts(&tmp_list, size_x));
+}
+#include <stdio.h>
+
+int	*get_window_size(t_vrts *tmatrix)
+{
+	int	*window_size;
+
+	window_size = malloc(2 * sizeof(int));
+	window_size[0] = tmatrix->size_x * IMAGE_SPACING + tmatrix->size_x
+		* IMAGE_SCALE;
+	window_size[1] = tmatrix->size_y * IMAGE_SPACING + tmatrix->size_y
+		* IMAGE_SCALE;
+	return (window_size);
+}
+
+void	draw_points(mlx_t *mlx, t_vrts *tmatrix)
+{
+	size_t		i;
+	size_t		j;
+	mlx_image_t	*img;
+	int			*window_size;
+	int			center_x;
+	int			center_y;
+
+	window_size = get_window_size(tmatrix);
+	center_x = window_size[0] / 2;
+	center_y = window_size[1] / 2;
+	j = 0;
+	i = 0;
+	while (i < tmatrix->size_y)
+	{
+		while (j < tmatrix->size_x)
+		{
+			img = mlx_new_image(mlx, IMAGE_SCALE, IMAGE_SCALE);
+			ft_memset(img->pixels, 255, img->width * img->height
+				* sizeof(int32_t));
+			mlx_image_to_window(mlx, img, j * IMAGE_SPACING, i * IMAGE_SPACING);
+			++j;
+		}
+		j = 0;
+		++i;
+	}
+	mlx_set_window_limit(mlx, window_size[0], window_size[1], window_size[0],
+		window_size[1]);
+}
+
+//TODO: Por alguna razon entre get_line_vertices() y main() las coordenadas de los
+//vertices se pierden y salen números basura. Habría que investigar por que,
+//muy probablemente sea porque hay que devolver pointers y no el struct
+//en si mismo ya que se devuelve por valor y no por referencia.
+void	debug_points(t_vrts tmatrix)
+{
+	int	i;
+
+	i = 0;
+	while (i < tmatrix.size_x * tmatrix.size_x)
+	{
+		printf("Punto %d %d %d\n", tmatrix.vertices[i].x, tmatrix.vertices[i].y,
+			tmatrix.vertices[i].z);
+			++i;
+	}
+}
+
+int	main(void)
+{
+	t_vrts		tmatrix;
+	mlx_image_t	*img;
+	mlx_t		*mlx;
+
+	tmatrix = read_file("maps/test_maps/basictest.fdf");
+	debug_points(tmatrix);
+	// Inicilialización
+	mlx_set_setting(MLX_DECORATED, 1);
+	mlx = mlx_init(1920, 1080, "fdf_test", 1);
+	// Configuración de los hooks
+	mlx_key_hook(mlx, &exit_keyhook, mlx);
+	// Pintado de imagenes iniciales:
+	/* 	img = mlx_new_image(mlx, 512, 512);
+		ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
+		mlx_image_to_window(mlx, img, 0, 0); */
+	// Comienzo de la ejecución
+	// draw_points(mlx, tmatrix);
+	mlx_loop(mlx);
+	// Cierre del programa
+	mlx_terminate(mlx);
+	return (0);
+}
