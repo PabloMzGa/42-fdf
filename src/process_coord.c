@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   process_coord.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/10 20:49:48 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/05 21:23:36 by pabmart2         ###   ########.fr       */
+/*   Created: 2025/02/05 21:28:36 by pabmart2          #+#    #+#             */
+/*   Updated: 2025/02/05 21:55:17 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "fdf.h"
+#include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+t_map	project_map(t_map *map, double	*normal, double *a_point)
 {
-	char		*temp_dest;
-	const char	*temp_src;
+	size_t i;
+	double *proj;
+	double a_point[3];
 
-	if (!dest && !src)
-		return (NULL);
-	temp_dest = (char *)dest;
-	temp_src = (const char *)src;
-	while (n--)
-		*(temp_dest++) = *(temp_src++);
-	return (dest);
+	while(i < map->size_x + map->size_y)
+	{
+		a_point[0]
+		proj = ft_vect_ortproj()
+	}
+
 }

@@ -6,13 +6,15 @@
 /*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 12:30:14 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/01/30 18:58:09 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/02/05 21:55:53 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "libft.h"
 #include <stdio.h>
+
+//TODO: Cambiar y no usar t_vert y usar directamente double * o int *;
 
 int	main(void)
 {

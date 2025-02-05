@@ -30,9 +30,9 @@ typedef struct s_vertex
 
 typedef struct s_map
 {
-	t_vert	*vertices;
-	int		size_x;
-	int		size_y;
+	t_vert	**vertices;
+	size_t	size_x;
+	size_t	size_y;
 }			t_map;
 
 /////////////////// HOOKS ///////////////////////
@@ -60,6 +60,6 @@ void		exit_keyhook(mlx_key_data_t keydata, void *param);
  * @param path The path to the file containing the map.
  * @return A pointer to the matrix of vertices.
  */
-t_map	*read_map(char *path);
+t_map		*read_map(char *path);
 
 #endif

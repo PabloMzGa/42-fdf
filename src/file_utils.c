@@ -6,25 +6,29 @@
 /*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:05:27 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/01/30 21:06:50 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/02/05 21:31:58 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "libft.h"
 
-void	print_vertices(t_map *map)
+/**
+ * @brief Displays the coordinates of all vertices in the map.
+ *
+ * This function iterates through all the vertices in the map and prints their
+ * coordinates to the console.
+ *
+ * @param map The map structure containing the vertices to be displayed.
+ */
+void	display_vertices(t_map *map)
 {
-	t_vert	vertex;
+	size_t	i;
 
-	for (int i = 0; i < map->size_y; i++)
+	for (i = 0; i < map->size_x * map->size_y; ++i)
 	{
-		for (int j = 0; j < map->size_x; j++)
-		{
-			vertex = map->vertices[i * map->size_x + j];
-			printf("Vertex at (%d, %d): x = %d, y = %d, z = %d\n", i, j,
-				vertex.x, vertex.y, vertex.z);
-		}
+		ft_printf("Vertex: {%d, %d, %d}\n", map->vertices[i]->x,
+			map->vertices[i]->y, map->vertices[i]->z);
 	}
 }
 
@@ -39,13 +43,16 @@ void	print_vertices(t_map *map)
  * @param z The z-coordinate of the vertex.
  * @return A t_vert structure initialized with the given coordinates.
  */
-t_vert	create_vert(int x, int y, int z)
+t_vert	*create_vert(int x, int y, int z)
 {
-	t_vert	vert;
+	t_vert	*vert;
 
-	vert.x = x;
-	vert.y = y;
-	vert.z = z;
+	vert = malloc(sizeof(t_vert));
+	if (!vert)
+		return (perror("Error allocating memory for vert"), NULL);
+	vert->x = x;
+	vert->y = y;
+	vert->z = z;
 	ft_printf("Vertice creado {%d, %d, %d}\n", x, y, z);
 	return (vert);
 }
@@ -66,7 +73,7 @@ t_vert	create_vert(int x, int y, int z)
  */
 t_map	*process_line(char *line, t_map *map, int y, size_t *map_size)
 {
-	int	x;
+	size_t	x;
 
 	x = 0;
 	map->vertices[*map_size] = create_vert(x, y, ft_atoi(line));
@@ -76,8 +83,8 @@ t_map	*process_line(char *line, t_map *map, int y, size_t *map_size)
 	{
 		if (*line == ' ')
 		{
-			map->vertices = ft_realloc(map->vertices, *map_size, ((*map_size)
-						+ 1) * sizeof(t_vert));
+			map->vertices = ft_realloc(map->vertices, (*map_size)
+					* sizeof(t_vert), ((*map_size) + 1) * sizeof(t_vert));
 			map->vertices[*map_size] = create_vert(x++, y, ft_atoi(line));
 			(*map_size)++;
 		}
@@ -102,7 +109,7 @@ t_map	*process_line(char *line, t_map *map, int y, size_t *map_size)
 t_map	*process_file(int fd, t_map *map)
 {
 	char	*line;
-	int		y;
+	size_t	y;
 	size_t	map_size;
 
 	map_size = 0;
@@ -114,8 +121,8 @@ t_map	*process_file(int fd, t_map *map)
 		line = ft_get_next_line(fd);
 		++y;
 	}
-	// map->size_y = y;
-	print_vertices(map);
+	map->size_y = y;
+	display_vertices(map);
 	return (map);
 }
 
@@ -149,7 +156,7 @@ t_map	*read_map(char *path)
 		perror("Error allocating the map");
 		return (NULL);
 	}
-	map->vertices = malloc(sizeof(t_vert));
+	map->vertices = malloc(sizeof(t_vert **));
 	map->size_x = 0;
 	map->size_y = 0;
 	return (process_file(fd, map));
