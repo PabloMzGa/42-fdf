@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vect_sub.c                                      :+:      :+:    :+:   */
+/*   ft_mindbl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 19:52:10 by pablo             #+#    #+#             */
-/*   Updated: 2025/02/07 13:34:14 by pablo            ###   ########.fr       */
+/*   Created: 2025/02/07 13:17:34 by pablo             #+#    #+#             */
+/*   Updated: 2025/02/07 17:17:40 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
-double	*ft_vect_sub(double *v1, double *v2, size_t d)
+size_t	ft_mindbl(double *array, size_t size)
 {
-	size_t		i;
-	double	*result;
+	double	min;
+	size_t	i;
+	size_t	min_pos;
 
-	if (!v1 || !v2)
-		return (NULL);
-	result = malloc(sizeof(double) * d);
-	if (!result)
-		return (NULL);
+	min = DBL_MAX;
 	i = 0;
-	while (i < d)
+	min_pos = 0;
+	while (i < size)
 	{
-		result[i] = v1[i] - v2[i];
+		if (min > array[i])
+		{
+			min_pos = i;
+			min = array[i];
+		}
 		++i;
 	}
-	return (result);
+	return (min_pos);
 }

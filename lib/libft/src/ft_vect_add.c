@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vect_add.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:52:10 by pablo             #+#    #+#             */
-/*   Updated: 2025/01/30 16:13:05 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/02/07 13:33:47 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-double	*ft_vect_add(double *v1, double *v2, int d)
+double	*ft_vect_add(double *v1, double *v2, size_t d)
 {
-	int		i;
+	size_t		i;
 	double	*result;
 
 	if (!v1 || !v2)

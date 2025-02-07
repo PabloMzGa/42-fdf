@@ -1,32 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vect_sub.c                                      :+:      :+:    :+:   */
+/*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 19:52:10 by pablo             #+#    #+#             */
-/*   Updated: 2025/02/07 13:34:14 by pablo            ###   ########.fr       */
+/*   Created: 2025/02/06 14:21:11 by pablo             #+#    #+#             */
+/*   Updated: 2025/02/07 18:07:11 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "fdf.h"
+#include "libft.h"
 
-double	*ft_vect_sub(double *v1, double *v2, size_t d)
+void	clean_map(t_map *map)
 {
-	size_t		i;
-	double	*result;
+	size_t	map_size;
+	size_t	i;
 
-	if (!v1 || !v2)
-		return (NULL);
-	result = malloc(sizeof(double) * d);
-	if (!result)
-		return (NULL);
+	map_size = map->size_x * map->size_y;
 	i = 0;
-	while (i < d)
+	while (i < map_size)
 	{
-		result[i] = v1[i] - v2[i];
+		free(map->vertices[i]);
 		++i;
 	}
-	return (result);
+	free(map->vertices);
+	free(map);
+}
+
+void	clean_matrix(double **matrix, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < size)
+	{
+		free(matrix[i]);
+		++i;
+	}
+	free(matrix);
 }

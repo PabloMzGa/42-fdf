@@ -3,34 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:05:27 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/05 21:31:58 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/02/07 18:06:18 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "libft.h"
-
-/**
- * @brief Displays the coordinates of all vertices in the map.
- *
- * This function iterates through all the vertices in the map and prints their
- * coordinates to the console.
- *
- * @param map The map structure containing the vertices to be displayed.
- */
-void	display_vertices(t_map *map)
-{
-	size_t	i;
-
-	for (i = 0; i < map->size_x * map->size_y; ++i)
-	{
-		ft_printf("Vertex: {%d, %d, %d}\n", map->vertices[i]->x,
-			map->vertices[i]->y, map->vertices[i]->z);
-	}
-}
 
 /**
  * @brief Creates a vertex with the given x, y, and z coordinates.
@@ -43,17 +24,16 @@ void	display_vertices(t_map *map)
  * @param z The z-coordinate of the vertex.
  * @return A t_vert structure initialized with the given coordinates.
  */
-t_vert	*create_vert(int x, int y, int z)
+static double	*create_vert(int x, int y, int z)
 {
-	t_vert	*vert;
+	double	*vert;
 
-	vert = malloc(sizeof(t_vert));
+	vert = malloc(sizeof(double) * 3);
 	if (!vert)
 		return (perror("Error allocating memory for vert"), NULL);
-	vert->x = x;
-	vert->y = y;
-	vert->z = z;
-	ft_printf("Vertice creado {%d, %d, %d}\n", x, y, z);
+	vert[0] = x;
+	vert[1] = y;
+	vert[2] = z;
 	return (vert);
 }
 
@@ -71,7 +51,7 @@ t_vert	*create_vert(int x, int y, int z)
  *                 updated.
  * @return A pointer to the updated map structure.
  */
-t_map	*process_line(char *line, t_map *map, int y, size_t *map_size)
+static t_map	*process_line(char *line, t_map *map, int y, size_t *map_size)
 {
 	size_t	x;
 
@@ -84,12 +64,14 @@ t_map	*process_line(char *line, t_map *map, int y, size_t *map_size)
 		if (*line == ' ')
 		{
 			map->vertices = ft_realloc(map->vertices, (*map_size)
-					* sizeof(t_vert), ((*map_size) + 1) * sizeof(t_vert));
+					* sizeof(double *), ((*map_size) + 1) * sizeof(double *));
 			map->vertices[*map_size] = create_vert(x++, y, ft_atoi(line));
 			(*map_size)++;
 		}
 		++line;
 	}
+	map->vertices = ft_realloc(map->vertices, (*map_size) * sizeof(double *),
+			((*map_size) + 1) * sizeof(double *));
 	map->size_x = x;
 	return (map);
 }
@@ -106,7 +88,7 @@ t_map	*process_line(char *line, t_map *map, int y, size_t *map_size)
  * @param map A pointer to the t_map structure to populate.
  * @return A pointer to the populated t_map structure.
  */
-t_map	*process_file(int fd, t_map *map)
+static t_map	*process_file(int fd, t_map *map)
 {
 	char	*line;
 	size_t	y;
@@ -118,27 +100,15 @@ t_map	*process_file(int fd, t_map *map)
 	while (line)
 	{
 		map = process_line(line, map, y, &map_size);
+		free(line);
 		line = ft_get_next_line(fd);
 		++y;
 	}
 	map->size_y = y;
-	display_vertices(map);
+	// display_vertices(map);
 	return (map);
 }
 
-/**
- * read_map - Reads a map from a file and processes it.
- * @path: The path to the file to be read.
- *
- * This function opens the file specified by @path in read-only mode. If the
- * file cannot be opened, it prints an error message and returns NULL. It then
- * allocates memory for a t_map structure. If the memory allocation fails, it
- * prints an error message and returns NULL. It initializes the map's vertices
- * pointer and sets the size_x and size_y fields to 0. Finally, it processes
- * the file and returns the resulting map.
- *
- * Return: A pointer to the processed t_map structure, or NULL on failure.
- */
 t_map	*read_map(char *path)
 {
 	int		fd;
@@ -146,17 +116,13 @@ t_map	*read_map(char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-	{
-		perror("Error opening the file");
-		return (NULL);
-	}
+		return (perror("Error opening the file"), NULL);
 	map = malloc(sizeof(t_map));
 	if (!map)
-	{
-		perror("Error allocating the map");
-		return (NULL);
-	}
-	map->vertices = malloc(sizeof(t_vert **));
+		return (perror("Error allocating the map"), NULL);
+	map->vertices = malloc(sizeof(double *));
+	if (!map->vertices)
+		return (perror("Error allocating vertices array"), NULL);
 	map->size_x = 0;
 	map->size_y = 0;
 	return (process_file(fd, map));

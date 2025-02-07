@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vect_sub.c                                      :+:      :+:    :+:   */
+/*   ft_vect_magn.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 19:52:10 by pablo             #+#    #+#             */
-/*   Updated: 2025/02/07 13:34:14 by pablo            ###   ########.fr       */
+/*   Created: 2025/02/07 15:55:22 by pablo             #+#    #+#             */
+/*   Updated: 2025/02/07 17:46:14 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
-
-double	*ft_vect_sub(double *v1, double *v2, size_t d)
+double ft_vect_magn(double *vect, size_t d)
 {
-	size_t		i;
-	double	*result;
+	size_t i;
+	double res;
 
-	if (!v1 || !v2)
-		return (NULL);
-	result = malloc(sizeof(double) * d);
-	if (!result)
-		return (NULL);
+	res = 0;
 	i = 0;
-	while (i < d)
+	while(i < d)
 	{
-		result[i] = v1[i] - v2[i];
+		res += pow(vect[i], 2);
 		++i;
 	}
-	return (result);
+	res = sqrt(res);
+	return(res);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 18:17:00 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/01/30 21:07:27 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/02/07 17:12:30 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 # define LIBFT_H
 
+# include <float.h>
 # include <limits.h>
+# include <math.h>
 # include <stdarg.h>
 # include <stdint.h>
 # include <stdlib.h>
@@ -372,6 +374,32 @@ void				*ft_memmove(void *dest, const void *src, size_t n);
  * @return Pointer to the memory area s.
  */
 void				*ft_memset(void *s, int c, size_t n);
+
+/**
+ * @file ft_mindbl.c
+ * @brief Finds the position of the minimum value in an array of doubles.
+ *
+ * This function iterates through an array of doubles and returns the index
+ * of the smallest value found in the array.
+ *
+ * @param array A pointer to the array of doubles.
+ * @param size The number of elements in the array.
+ * @return The index of the minimum value in the array.
+ */
+size_t				ft_mindbl(double *array, size_t size);
+
+/**
+ * ft_minint - Finds the position of the minimum integer in an array.
+ * @array: The array of integers.
+ * @size: The size of the array.
+ *
+ * This function iterates through the given array to find the position
+ * of the smallest integer. It returns the index of the minimum integer.
+ *
+ * @return: The index of the minimum integer in the array.
+ * @todo: Try better search algorithm (Ex: binary search)
+ */
+size_t				ft_minint(int *array, size_t size);
 
 /**
  * @brief A function that does nothing with the given content.
@@ -747,6 +775,21 @@ char				*ft_uitoa(unsigned int n);
 char				*ft_uitob(unsigned int nbr, char *base);
 
 /**
+ * @brief the absolute value of each element in a vector.
+ *
+ * This function allocates memory for a new vector and fills it with the
+ * absolute values of the elements in the input vector. If memory allocation
+ * fails, the function returns NULL.
+ *
+ * @param vect A pointer to the input vector of doubles.
+ * @param d The dimension (number of elements) of the vector.
+ * @return A pointer to the new vector containing the absolute values, or
+ *         NULL if memory allocation fails.
+ * @note The caller is responsible of freeing the returned vector.
+ */
+double				*ft_vect_abs(double *vect, size_t d);
+
+/**
  * @brief Adds two vectors element-wise.
  *
  * This function takes two vectors (arrays of doubles) and their dimension,
@@ -758,9 +801,39 @@ char				*ft_uitob(unsigned int nbr, char *base);
  * @param d The dimension of the vectors.
  * @return A new vector containing the element-wise sum of v1 and v2,
  *         or NULL if either input vector is NULL or if memory allocation fails.
+ * @note The caller is responsible of freeing the returned vector.
  */
-double				*ft_vect_add(double *v1, double *v2, int d);
+double				*ft_vect_add(double *v1, double *v2, size_t d);
 
+/**
+ * @file ft_vect_cross.c
+ * @brief Computes the cross product of two vectors.
+ *
+ * This function takes two vectors `v1` and `v2` of dimension `d` and computes
+ * their cross product. The result is stored in a newly allocated array.
+ *
+ * @param v1 Pointer to the first vector.
+ * @param v2 Pointer to the second vector.
+ * @param d Dimension of the vectors.
+ * @return Pointer to the resulting vector, or NULL if memory allocation fails.
+ * @note The caller is responsible of freeing the returned vector.
+ */
+double	*ft_vect_cross(double *v1, double *v2, size_t d);
+
+/**
+ * @brief Divides each element of a vector by a given number.
+ *
+ * This function takes a vector of doubles and divides each element by the
+ * specified number. The result is stored in a newly allocated vector.
+ *
+ * @param vect Pointer to the input vector of doubles.
+ * @param n The number by which each element of the vector will be divided.
+ * @param d The number of elements in the vector.
+ * @return A pointer to the newly allocated vector containing the results,
+ *         or NULL if the input vector is NULL or memory allocation fails.
+ * @note The caller is responsible of freeing the returned vector.
+ */
+double	*ft_vect_div(double *vect, double n, size_t d);
 /**
  * @brief Computes the dot product of two vectors.
  *
@@ -773,7 +846,33 @@ double				*ft_vect_add(double *v1, double *v2, int d);
  * @param d The dimension of the vectors.
  * @return The dot product of the two vectors.
  */
-double				ft_vect_dot(double *v1, double *v2, int d);
+double				ft_vect_dot(double *v1, double *v2, size_t d);
+
+/**
+ * @brief Computes the magnitude of a vector.
+ *
+ * This function calculates the magnitude (Euclidean norm) of a vector
+ * with a given dimension.
+ *
+ * @param vect A pointer to the array representing the vector.
+ * @param d The dimension of the vector.
+ * @return The magnitude of the vector.
+ */
+double				ft_vect_magn(double *vect, size_t d);
+
+/**
+ * @brief Normalizes a vector.
+ *
+ * This function takes a vector and its dimension, and returns a normalized
+ * version of the vector. Normalization is done by dividing the vector by its
+ * magnitude.
+ *
+ * @param vect The vector to be normalized.
+ * @param d The dimension of the vector.
+ * @return A pointer to the normalized vector.
+ * @note The caller is responsible of freeing the returned vector.
+ */
+double *ft_vect_norm(double  *vect, size_t d);
 
 /**
  * @brief Computes the orthogonal projection of a point onto a plane.
@@ -784,14 +883,14 @@ double				ft_vect_dot(double *v1, double *v2, int d);
  *
  * @param a_point A pointer to the coordinates of a point on the plane.
  * @param normal A pointer to the coordinates of the normal vector of the plane.
- * @param p_point A pointer to the coordinates of the point to be projected.
+ * @param p_point A pointer to the coordinates of a point of the plane.
  * @param dimension The number of dimensions of the space.
- * @return A pointer to the coordinates of the projected point. The caller is
- * responsible for freeing the allocated memory. Returns NULL if the dimension
- * is zero.
+ * @return A pointer to the coordinates of the projected point
+ *         Returns NULL if the dimension is zero.
+ * @note The caller is responsible of freeing the returned vector.
  */
 double				*ft_vect_ortproj(double *a_point, double *normal,
-						double *p_point, int dimension);
+						double *p_point, size_t dimension);
 
 /**
  * @file ft_vectprod.c
@@ -806,8 +905,9 @@ double				*ft_vect_ortproj(double *a_point, double *normal,
  * @param d The dimension of the vector.
  * @return A pointer to the resulting vector, or NULL if the input vector is
  *         NULL or memory allocation fails.
+ * @note The caller is responsible of freeing the returned vector.
  */
-double				*ft_vect_prod(double n, double *v, int d);
+double				*ft_vect_prod(double *vect, double n, size_t d);
 
 /**
  * @brief Subtracts two vectors element-wise.
@@ -821,7 +921,8 @@ double				*ft_vect_prod(double n, double *v, int d);
  * @param d Dimension of the vectors.
  * @return A pointer to the resulting vector after subtraction, or NULL
  *         if either input vector is NULL or memory allocation fails.
+ * @note The caller is responsible of freeing the returned vector.
  */
-double				*ft_vect_sub(double *v1, double *v2, int d);
+double				*ft_vect_sub(double *v1, double *v2, size_t d);
 
 #endif

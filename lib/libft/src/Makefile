@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+         #
+#    By: pablo <pablo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:34:30 by pabmart2          #+#    #+#              #
-#    Updated: 2025/01/30 17:58:50 by pabmart2         ###   ########.fr        #
+#    Updated: 2025/02/07 16:26:43 by pablo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,8 @@ SRC = \
     ft_memjoin.c \
     ft_memmove.c \
     ft_memset.c \
+	ft_mindbl.c \
+	ft_minint.c  \
     ft_nothing.c \
     ft_putchar_fd.c \
     ft_putendl_fd.c \
@@ -70,10 +72,15 @@ SRC = \
     ft_uintptrtob.c \
     ft_uitoa.c \
     ft_uitob.c \
+	ft_vect_abs.c \
     ft_vect_add.c \
+	ft_vect_cross.c \
+	ft_vect_div.c \
     ft_vect_dot.c \
-    ft_vect_prod.c \
+	ft_vect_magn.c \
+	ft_vect_norm.c \
     ft_vect_ortproj.c \
+    ft_vect_prod.c \
     ft_vect_sub.c \
     ft_printf/check_printer.c \
     ft_printf/ft_printf.c \
