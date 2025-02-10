@@ -18,8 +18,11 @@
 # include "libft.h"
 # include <fcntl.h>
 
-# define IMAGE_SCALE 5
-# define IMAGE_SPACING 40
+/**
+ * Defines the scale of each dot of the grid. 0 means the dots size will be
+ * equivalent to a single pixel
+ */
+# define POINT_RADIUS 2
 
 typedef struct s_map
 {
@@ -78,7 +81,7 @@ t_map		*read_map(char *path);
  * @note The caller is responsible for freeing the memory allocated for the
  * projected map and its vertices.
  */
-t_map	*project_map(t_map *map, double *normal, double *a_point);
+t_map		*project_map(t_map *map, double *normal, double *a_point);
 
 /**
  * @brief Creates a 2D map from a 3D map using a normal vector and a
@@ -103,7 +106,10 @@ t_map	*project_map(t_map *map, double *normal, double *a_point);
  * @note The caller is responsible for freeing the memory allocated for the
  * projected map and its vertices.
  */
-double	**create_2d_map(t_map *p_map, double *normal, double *p_point);
+double		**create_2d_map(t_map *p_map, double *normal, double *p_point);
+
+double		**map2d_to_screen(double **map2d, size_t width, size_t heigth,
+				size_t map_size);
 
 //////////////////// CLEAN UTILS //////////////////////
 
@@ -115,7 +121,7 @@ double	**create_2d_map(t_map *p_map, double *normal, double *p_point);
  * freeing each individual vertex. After all vertices are freed, it frees the
  * vertices array itself and finally frees the t_map structure.
  */
-void	clean_map(t_map *map);
+void		clean_map(t_map *map);
 
 /**
  * @brief Frees the memory allocated for a 2D matrix.
@@ -127,6 +133,6 @@ void	clean_map(t_map *map);
  * @param matrix A pointer to the 2D matrix to be freed.
  * @param size The number of rows in the matrix.
  */
-void	clean_matrix(double	**matrix, size_t size);
+void		clean_matrix(double **matrix, size_t size);
 
 #endif

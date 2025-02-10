@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 18:17:00 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/07 17:12:30 by pablo            ###   ########.fr       */
+/*   Updated: 2025/02/10 21:22:26 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 # include "ft_get_next_line/ft_get_next_line.h"
 # include "ft_printf/ft_printf.h"
 
@@ -283,6 +284,32 @@ t_list				*ft_lstnew(void *content);
  * @return The number of elements in the linked list.
  */
 int					ft_lstsize(t_list *lst);
+
+/**
+ * @brief Finds the maximum value in a specified column of a 2D array.
+ *
+ * This function iterates through a specified column of a 2D array and returns
+ * the maximum value found in that column.
+ *
+ * @param array A pointer to the 2D array of doubles.
+ * @param size The number of rows in the 2D array.
+ * @param pos The index of the column to search for the maximum value.
+ * @return The maximum value found in the specified column.
+ */
+double	ft_matrix_maxcol(double **array, size_t size, size_t pos);
+
+/**
+ * @brief Finds the minimum value in a specified column of a 2D array.
+ *
+ * This function iterates through a 2D array and finds the minimum value
+ * in the specified column (pos).
+ *
+ * @param array A pointer to the 2D array of doubles.
+ * @param size The number of rows in the 2D array.
+ * @param pos The column index to search for the minimum value.
+ * @return The minimum value found in the specified column.
+ */
+double	ft_matrix_mincol(double **array, size_t size, size_t pos);
 
 /**
  * Searches for the first occurrence of a byte in a block of memory.
@@ -806,17 +833,21 @@ double				*ft_vect_abs(double *vect, size_t d);
 double				*ft_vect_add(double *v1, double *v2, size_t d);
 
 /**
- * @file ft_vect_cross.c
- * @brief Computes the cross product of two vectors.
+ * @brief Computes the cross product of two 3-dimensional vectors.
  *
- * This function takes two vectors `v1` and `v2` of dimension `d` and computes
- * their cross product. The result is stored in a newly allocated array.
+ * This function calculates the cross product of two vectors `v1` and `v2`,
+ * each of which must be 3-dimensional. The cross product is a vector that
+ * is perpendicular to both `v1` and `v2`.
  *
- * @param v1 Pointer to the first vector.
- * @param v2 Pointer to the second vector.
- * @param d Dimension of the vectors.
- * @return Pointer to the resulting vector, or NULL if memory allocation fails.
- * @note The caller is responsible of freeing the returned vector.
+ * @param v1 A pointer to the first 3-dimensional vector.
+ * @param v2 A pointer to the second 3-dimensional vector.
+ * @param d The dimension of the vectors, which must be 3.
+ * @return A pointer to the resulting 3-dimensional vector, or NULL if an
+ *         error occurs (e.g., if the dimension is not 3 or memory allocation
+ *         fails).
+ *
+ * @note The caller is responsible for freeing the memory allocated for the
+ *       resulting vector.
  */
 double	*ft_vect_cross(double *v1, double *v2, size_t d);
 

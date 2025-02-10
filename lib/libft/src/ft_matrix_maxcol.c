@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mindbl.c                                        :+:      :+:    :+:   */
+/*   ft_matrix_maxcol.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:17:34 by pablo             #+#    #+#             */
-/*   Updated: 2025/02/10 21:16:23 by pablo            ###   ########.fr       */
+/*   Updated: 2025/02/10 21:22:34 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_mindbl(double *array, size_t size)
+double	ft_matrix_maxcol(double **array, size_t size, size_t pos)
 {
-	double	min;
+	double	max;
 	size_t	i;
-	size_t	min_pos;
 
-	min = DBL_MAX;
+	max = DBL_MIN;
+
 	i = 0;
-	min_pos = 0;
 	while (i < size)
 	{
-		if (min > array[i])
+		if (max < array[i][pos])
 		{
-			min_pos = i;
-			min = array[i];
+			max = array[i][pos];
 		}
 		++i;
 	}
-	return (min_pos);
+	return (max);
 }

@@ -9,6 +9,8 @@
 		"fcntl.h": "c",
 		"ft_printf.h": "c",
 		"limits.h": "c",
-		"ft_get_next_line.h": "c"
+		"ft_get_next_line.h": "c",
+		"random": "c",
+		"limits": "c"
 	}
 }

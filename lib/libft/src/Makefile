@@ -6,7 +6,7 @@
 #    By: pablo <pablo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:34:30 by pabmart2          #+#    #+#              #
-#    Updated: 2025/02/07 16:26:43 by pablo            ###   ########.fr        #
+#    Updated: 2025/02/10 21:22:50 by pablo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,8 @@ SRC = \
     ft_lstmap.c \
     ft_lstnew.c \
     ft_lstsize.c \
+	ft_matrix_mincol.c \
+	ft_matix_maxcol.c \
     ft_memchr.c \
     ft_memcmp.c \
     ft_memcpy.c \
