@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:05:27 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/07 18:06:18 by pablo            ###   ########.fr       */
+/*   Updated: 2025/02/11 21:24:09 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,45 +34,49 @@ static double	*create_vert(int x, int y, int z)
 	vert[0] = x;
 	vert[1] = y;
 	vert[2] = z;
+	printf("Creado vertice (%d, %d, %d)\n", x, y, z);
 	return (vert);
 }
 
 /**
  * @brief Processes a line of input and updates the map structure with vertices.
  *
- * This function takes a line of input, parses it to extract vertex information,
- * and updates the map structure with the new vertices. It also updates the map
- * size and the x-dimension of the map.
+ * This function takes a line of input, splits it into tokens, and creates
+ * vertices based on the tokens. It updates the map structure with the new
+ * vertices and increments the map size accordingly.
  *
  * @param line The input line to be processed.
  * @param map The map structure to be updated.
- * @param y The y-coordinate for the vertices being processed.
- * @param map_size A pointer to the current size of the map, which will be
+ * @param y The y-coordinate for the vertices.
+ * @param map_size Pointer to the current size of the map, which will be
  *                 updated.
- * @return A pointer to the updated map structure.
+ * @return A pointer to the updated map structure, or NULL if an error occurs.
  */
 static t_map	*process_line(char *line, t_map *map, int y, size_t *map_size)
 {
 	size_t	x;
+	size_t	t_count;
+	char	**tokens;
+	int		i;
 
 	x = 0;
-	map->vertices[*map_size] = create_vert(x, y, ft_atoi(line));
-	++(*map_size);
-	++x;
-	while (*line)
+	tokens = ft_splitm(line, " \n");
+	if (!tokens)
+		return (perror("Error splitting line"), NULL);
+	t_count = ft_matrix_len((void **)tokens);
+	map->vertices = ft_realloc(map->vertices, (*map_size) * sizeof(double *),
+			((*map_size) + t_count) * sizeof(double *));
+	i = 0;
+	while (tokens[i])
 	{
-		if (*line == ' ')
-		{
-			map->vertices = ft_realloc(map->vertices, (*map_size)
-					* sizeof(double *), ((*map_size) + 1) * sizeof(double *));
-			map->vertices[*map_size] = create_vert(x++, y, ft_atoi(line));
-			(*map_size)++;
-		}
-		++line;
+		map->vertices[*map_size] = create_vert(x++, y, ft_atoi(tokens[i]));
+		(*map_size)++;
+		i++;
 	}
 	map->vertices = ft_realloc(map->vertices, (*map_size) * sizeof(double *),
 			((*map_size) + 1) * sizeof(double *));
-	map->size_x = x;
+	map->size_x = t_count;
+	ft_matrix_free((void **)tokens, 0);
 	return (map);
 }
 
@@ -102,6 +106,7 @@ static t_map	*process_file(int fd, t_map *map)
 		map = process_line(line, map, y, &map_size);
 		free(line);
 		line = ft_get_next_line(fd);
+		ft_printf("Linea %d parseada\n", y);
 		++y;
 	}
 	map->size_y = y;

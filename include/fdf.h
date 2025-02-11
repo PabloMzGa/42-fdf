@@ -22,7 +22,7 @@
  * Defines the scale of each dot of the grid. 0 means the dots size will be
  * equivalent to a single pixel
  */
-# define POINT_RADIUS 2
+# define POINT_RADIUS 0
 
 typedef struct s_map
 {
@@ -110,6 +110,39 @@ double		**create_2d_map(t_map *p_map, double *normal, double *p_point);
 
 double		**map2d_to_screen(double **map2d, size_t width, size_t heigth,
 				size_t map_size);
+
+/**
+ * @brief Sets the camera normal vector based on the map center and a given
+ *        point.
+ *
+ * This function calculates the normal vector from the center of the map to a
+ * given point. It allocates memory for the normal vector and returns it.
+ *
+ * @param map A pointer to the t_map structure containing the map dimensions.
+ * @param p_point A pointer to a double array representing the point
+ *                coordinates.
+ * @return A pointer to a double array representing the normal vector.
+ *
+ * @note The caller is responsible for freeing the allocated memory for the
+ * normal vector.
+ */
+double	*set_camera_normal(t_map *map, double *p_point);
+
+/**
+ * @brief Sets the perspective point for the map.
+ *
+ * This function calculates the perspective point (p_point) for the given map.
+ * The perspective point is determined by taking the midpoint of the map's
+ * width (size_x) and height (size_y), and half of the maximum value in the
+ * third column of the map's vertices matrix.
+ *
+ * @param map Pointer to the map structure containing the map data.
+ * @return A pointer to an array of three doubles representing the perspective
+ *         point (p_point).
+ * @note The caller is responsible for freeing the memory allocated for the
+ * projected map and its vertices.
+ */
+double	*set_p_point(t_map *map);
 
 //////////////////// CLEAN UTILS //////////////////////
 

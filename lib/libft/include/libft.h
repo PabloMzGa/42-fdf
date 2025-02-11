@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 18:17:00 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/10 21:22:26 by pablo            ###   ########.fr       */
+/*   Updated: 2025/02/11 20:48:44 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include <math.h>
 # include <stdarg.h>
 # include <stdint.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 # include "ft_get_next_line/ft_get_next_line.h"
 # include "ft_printf/ft_printf.h"
 
@@ -286,6 +286,29 @@ t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
 
 /**
+ * @brief Frees a dynamically allocated 2D array.
+ *
+ * This function frees each element of a 2D array and then frees the array itself.
+ * It can handle arrays where the size is known or unknown.
+ *
+ * @param array The 2D array to be freed.
+ * @param size The number of elements in the array. If size is 0, the function
+ *             will free elements until a NULL pointer is encountered.
+ */
+void				ft_matrix_free(void **array, size_t size);
+
+/**
+ * @brief Calculates the length of a null-terminated array of pointers.
+ *
+ * This function iterates through the array of pointers until it encounters
+ * a null pointer, counting the number of elements in the array.
+ *
+ * @param array A null-terminated array of pointers.
+ * @return The number of elements in the array, excluding the null pointer.
+ */
+size_t	ft_matrix_len(void **array);
+
+/**
  * @brief Finds the maximum value in a specified column of a 2D array.
  *
  * This function iterates through a specified column of a 2D array and returns
@@ -296,7 +319,7 @@ int					ft_lstsize(t_list *lst);
  * @param pos The index of the column to search for the maximum value.
  * @return The maximum value found in the specified column.
  */
-double	ft_matrix_maxcol(double **array, size_t size, size_t pos);
+double				ft_matrix_maxcol(double **array, size_t size, size_t pos);
 
 /**
  * @brief Finds the minimum value in a specified column of a 2D array.
@@ -309,7 +332,7 @@ double	ft_matrix_maxcol(double **array, size_t size, size_t pos);
  * @param pos The column index to search for the minimum value.
  * @return The minimum value found in the specified column.
  */
-double	ft_matrix_mincol(double **array, size_t size, size_t pos);
+double				ft_matrix_mincol(double **array, size_t size, size_t pos);
 
 /**
  * Searches for the first occurrence of a byte in a block of memory.
@@ -504,7 +527,7 @@ void				*ft_realloc(void *ptr, size_t old_size, size_t size);
 /**
  * @brief Splits a string into an array of substrings based on a delimiter.
  *
- * This function takes a string `s` a nd a delimiter character `c`, and splits
+ * This function takes a string `s` and a delimiter character `c`, and splits
  * the string into an array of substrings. The substrings are allocated
  * dynamically and stored in an null endeded array of strings,
  * which is returned.
@@ -516,6 +539,22 @@ void				*ft_realloc(void *ptr, size_t old_size, size_t size);
  *         NULL is returned.
  */
 char				**ft_split(char const *s, char c);
+
+/**
+ * @brief Splits a string into an array of substrings based on multiple
+ *        delimiters.
+ *
+ * This function splits the input string s into an array of substrings,
+ * using any of thecharacters in @cs as delimiters. The resulting array of
+ * substrings is dynamically allocatedand must be freed by the caller.
+ * The last element of the array is set to NULL.
+ *
+ * @param cs A string containing the delimiter characters.
+ * @param s The input string to be split.
+ * @return A pointer to the array of substrings, or NULL if memory
+ *         allocation fails.
+ */
+char	**ft_splitm(char const *s, char *cs);
 
 /**
  * @brief Searches for the first occurrence of a character in a string.
@@ -532,6 +571,26 @@ char				**ft_split(char const *s, char c);
  *         not found.
  */
 char				*ft_strchr(const char *s, int c);
+
+/**
+ * @brief Custom string search function.
+ *
+ * This function searches for the first occurrence of any character from the
+ * array `c` in the string `s`. If a character from `c` is found in `s`, a
+ * pointer to the character in `s` is returned. If no character from `c` is
+ * found, NULL is returned.
+ *
+ * @param s The string to be searched.
+ * @param c An array of integers representing the characters to search for.
+ * @return A pointer to the first occurrence of any character from `c` in `s`,
+ *         or NULL if no such character is found.
+ *
+ * @note The function allocates memory for an unsigned char array to store the
+ *       characters from `c`. This memory is freed before the function returns.
+ *       If memory allocation fails, the function returns NULL and prints an
+ *       error message.
+ */
+char	*ft_strchrm(const char *s, char *c);
 
 /**
  * @brief Duplicates a string.
@@ -849,7 +908,7 @@ double				*ft_vect_add(double *v1, double *v2, size_t d);
  * @note The caller is responsible for freeing the memory allocated for the
  *       resulting vector.
  */
-double	*ft_vect_cross(double *v1, double *v2, size_t d);
+double				*ft_vect_cross(double *v1, double *v2, size_t d);
 
 /**
  * @brief Divides each element of a vector by a given number.
@@ -864,7 +923,7 @@ double	*ft_vect_cross(double *v1, double *v2, size_t d);
  *         or NULL if the input vector is NULL or memory allocation fails.
  * @note The caller is responsible of freeing the returned vector.
  */
-double	*ft_vect_div(double *vect, double n, size_t d);
+double				*ft_vect_div(double *vect, double n, size_t d);
 /**
  * @brief Computes the dot product of two vectors.
  *
@@ -903,7 +962,7 @@ double				ft_vect_magn(double *vect, size_t d);
  * @return A pointer to the normalized vector.
  * @note The caller is responsible of freeing the returned vector.
  */
-double *ft_vect_norm(double  *vect, size_t d);
+double				*ft_vect_norm(double *vect, size_t d);
 
 /**
  * @brief Computes the orthogonal projection of a point onto a plane.

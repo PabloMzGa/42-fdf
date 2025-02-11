@@ -6,7 +6,7 @@
 #    By: pablo <pablo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:34:30 by pabmart2          #+#    #+#              #
-#    Updated: 2025/02/10 21:22:50 by pablo            ###   ########.fr        #
+#    Updated: 2025/02/11 20:39:50 by pablo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,8 @@ SRC = \
     ft_lstmap.c \
     ft_lstnew.c \
     ft_lstsize.c \
+	ft_matrix_free.c \
+	ft_matrix_len.c \
 	ft_matrix_mincol.c \
 	ft_matix_maxcol.c \
     ft_memchr.c \
@@ -53,8 +55,10 @@ SRC = \
     ft_putnbr_fd.c \
     ft_putstr_fd.c \
     ft_split.c \
+	ft_splitm.c \
     ft_realloc.c \
     ft_strchr.c \
+	ft_strchrm \
     ft_strdup.c \
     ft_striteri.c \
     ft_strjoin.c \

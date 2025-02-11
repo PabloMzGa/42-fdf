@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 12:30:14 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/10 23:39:41 by pablo            ###   ########.fr       */
+/*   Updated: 2025/02/11 22:54:04 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,35 +76,29 @@ void	create_image(double **projected_2d, size_t size, mlx_t *mlx)
 }
 
 /**
- * TODO: Mapas que fallan:
- *  - 42 - segfault en ft_vect_sub
- *  - elem-col - segfault en ft_vect_sub
- *  - elem-fract - bucle infinito
- *  - elem - segfault en ft_vect_sub
- *  - elem2 - segfault en ft_vect_sub
- *  - julia - bucle infinito
- *  - mars - bucle infinito
- *  - pyra - segfault en ft_vect_sub
- *  - t1 - bucle infinito
- *
- * Los segfault ocurren al hacer la proyección ortogonal
- * Los bucles infinitos parece que es al cargar muchos vértices
+ * TODO: Comprobar leaks de memoria
+ * TODO: Parece que algunos puntos se desplazan
+ * TODO: Calculo de la cámara, posición y normal teniendo en cuenta la mitad
+ * del tamaño del mapa para apuntar al centro.
  */
 int	main(void)
 {
 	t_map	*map;
 	t_map	*projected_map;
 	double	**projected_2d;
-	double	normal[3] = {1, 2, 3};
-	double	p_point[3] = {4, 5, 6};
+	double	*normal;
+	double	*p_point;
 	double	*n_normal;
 	mlx_t	*mlx;
 
-	map = read_map("maps/test_maps/t1.fdf");
+	map = read_map("maps/test_maps/mars.fdf");
+
+	p_point = set_p_point(map);
+	normal = set_camera_normal(map, p_point);
 	projected_map = project_map(map, normal, p_point);
+	show_vertices(map);
 	n_normal = ft_vect_norm(normal, 3);
 	projected_2d = create_2d_map(projected_map, n_normal, p_point);
-	show_vertices(map);
 	map2d_to_screen(projected_2d, 1920, 1080, projected_map->size_x
 		* projected_map->size_y);
 	show_projected_2d(projected_2d, map->size_x, map->size_y);
