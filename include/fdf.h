@@ -24,6 +24,8 @@
  */
 # define POINT_RADIUS 0
 
+# define GRAPH_COLOR 0xffffff
+
 typedef struct s_map
 {
 	double	**vertices;
@@ -143,6 +145,41 @@ double	*set_camera_normal(t_map *map, double *p_point);
  * projected map and its vertices.
  */
 double	*set_p_point(t_map *map);
+
+//////////////////// DRAWERS //////////////////////////
+/**
+ * @brief Draws a line on the given image from point (x0, y0) to point (x1, y1).
+ *
+ * This function determines whether to draw the line horizontally or vertically
+ * based on the difference between the x and y coordinates. It ensures that the
+ * coordinates are within a safe range before proceeding.
+ *
+ * It's based on the Bresenham's Line Algorithm
+ *
+ * @param x0 The x-coordinate of the starting point.
+ * @param y0 The y-coordinate of the starting point.
+ * @param x1 The x-coordinate of the ending point.
+ * @param y1 The y-coordinate of the ending point.
+ * @param img A pointer to the image where the line will be drawn.
+ *
+ * @note If any of the coordinates exceed INT32_MAX, an error message is printed
+ *       and the function returns without drawing the line.
+ */
+void	draw_line(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
+	mlx_image_t *img);
+
+//////////////////// HELPERS //////////////////////////
+/**
+ * @brief Inverts the coordinates of two points.
+ *
+ * This function swaps the x and y coordinates of two points.
+ *
+ * @param x0 Pointer to the x coordinate of the first point.
+ * @param y0 Pointer to the y coordinate of the first point.
+ * @param x1 Pointer to the x coordinate of the second point.
+ * @param y1 Pointer to the y coordinate of the second point.
+ */
+void	invert_coords(uint32_t *x0, uint32_t *y0, uint32_t *x1, uint32_t *y1);
 
 //////////////////// CLEAN UTILS //////////////////////
 

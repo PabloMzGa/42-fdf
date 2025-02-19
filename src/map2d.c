@@ -6,12 +6,11 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:28:36 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/10 20:47:36 by pablo            ###   ########.fr       */
+/*   Updated: 2025/02/13 18:51:59 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "libft.h"
 
 static double	*assign_a_vector(double **a_vect, double *normal, size_t pos)
 {

@@ -1,43 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_utils.c                                      :+:      :+:    :+:   */
+/*   draw_line_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/06 14:21:11 by pablo             #+#    #+#             */
-/*   Updated: 2025/02/13 18:32:45 by pablo            ###   ########.fr       */
+/*   Created: 2025/02/13 18:51:43 by pablo             #+#    #+#             */
+/*   Updated: 2025/02/19 21:21:25 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "libft.h"
 
-void	clean_map(t_map *map)
+void	invert_coords(uint32_t *x0, uint32_t *y0, uint32_t *x1, uint32_t *y1)
 {
-	size_t	map_size;
-	size_t	i;
+	uint32_t	temp;
 
-	map_size = map->size_x * map->size_y;
-	i = 0;
-	while (i < map_size)
-	{
-		free(map->vertices[i]);
-		++i;
-	}
-	free(map->vertices);
-	free(map);
-}
-
-void	clean_matrix(double **matrix, size_t size)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < size)
-	{
-		free(matrix[i]);
-		++i;
-	}
-	free(matrix);
+	temp = *x0;
+	*x0 = *x1;
+	*x1 = temp;
+	temp = *y0;
+	*y0 = *y1;
+	*y1 = temp;
 }

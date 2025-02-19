@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 12:30:14 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/11 22:54:04 by pablo            ###   ########.fr       */
+/*   Updated: 2025/02/19 23:00:33 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,48 @@ void	draw_point(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 	}
 }
 
-void	create_image(double **projected_2d, size_t size, mlx_t *mlx)
+void	create_image(double **projected_2d, size_t size, mlx_t *mlx, t_map *map)
 {
-	mlx_image_t	*image;
+	mlx_image_t	*img;
 	size_t		i;
+	size_t		x;
+	size_t		y;
 
-	image = mlx_new_image(mlx, mlx->width, mlx->height);
-	if (!image)
+	img = mlx_new_image(mlx, mlx->width, mlx->height);
+	if (!img)
 		return (perror("Error creating MLX image"));
-	ft_memset(image->pixels, 15, image->width * image->height
-		* sizeof(int32_t));
+	ft_memset(img->pixels, 15, img->width * img->height * sizeof(int32_t));
 	i = 0;
+	x = 1;
+	y = 1;
 	while (i < size)
 	{
-		draw_point(image, (uint32_t)projected_2d[i][0],
-			(uint32_t)projected_2d[i][1], 0xffffff);
+		draw_point(img, (uint32_t)projected_2d[i][0],
+			(uint32_t)projected_2d[i][1], GRAPH_COLOR);
+		if (x < map->size_x && i < size - 1)
+		{
+
+				draw_line((uint32_t)projected_2d[i][0],
+					(uint32_t)projected_2d[i][1], (uint32_t)projected_2d[i
+					+ 1][0], (uint32_t)projected_2d[i + 1][1], img);
+			++x;
+		}
+		else
+			x = 1;
+		if (y < map->size_y)
+		{
+
+				draw_line((uint32_t)projected_2d[i][0],
+					(uint32_t)projected_2d[i][1], (uint32_t)projected_2d[i
+					+ map->size_x][0], (uint32_t)projected_2d[i
+					+ map->size_x][1], img);
+		}
 		++i;
+		if (i >= map->size_x && i % map->size_x == 0)
+			++y;
 	}
 	// Display an instance of the image
-	if (mlx_image_to_window(mlx, image, 0, 0) < 0)
+	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
 		return (perror("Error displaying MLX image"));
 }
 
@@ -79,7 +102,7 @@ void	create_image(double **projected_2d, size_t size, mlx_t *mlx)
  * TODO: Comprobar leaks de memoria
  * TODO: Parece que algunos puntos se desplazan
  * TODO: Calculo de la cámara, posición y normal teniendo en cuenta la mitad
- * del tamaño del mapa para apuntar al centro.
+ * del tamaño del mapa para apuntar al centro. UPDATE: A medio hacer
  */
 int	main(void)
 {
@@ -92,7 +115,6 @@ int	main(void)
 	mlx_t	*mlx;
 
 	map = read_map("maps/test_maps/mars.fdf");
-
 	p_point = set_p_point(map);
 	normal = set_camera_normal(map, p_point);
 	projected_map = project_map(map, normal, p_point);
@@ -106,7 +128,7 @@ int	main(void)
 	mlx = mlx_init(1920, 1080, "fdf_test", 1);
 	// Configuración de los hooks
 	mlx_key_hook(mlx, &exit_keyhook, mlx);
-	create_image(projected_2d, map->size_x * map->size_y, mlx);
+	create_image(projected_2d, map->size_x * map->size_y, mlx, map);
 	mlx_loop(mlx);
 	// Cierre del programa
 	mlx_terminate(mlx);
