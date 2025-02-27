@@ -19,12 +19,22 @@
 # include <fcntl.h>
 
 /**
- * Defines the scale of each dot of the grid. 0 means the dots size will be
+ * Scale of each dot of the grid. 0 means the dots size will be
  * equivalent to a single pixel
  */
 # define POINT_RADIUS 0
-
+/**
+ * Color of the graph
+ */
 # define GRAPH_COLOR 0xffffff
+/**
+ * Multiplier for the Z coordenate
+ */
+# define Z_MULTIPLIER 10
+/**
+ * The space between each point in XY
+ */
+# define SPACING 10
 
 typedef struct s_map
 {

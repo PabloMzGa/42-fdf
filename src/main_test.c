@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 12:30:14 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/19 23:00:33 by pablo            ###   ########.fr       */
+/*   Updated: 2025/02/27 19:22:10 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,19 +111,17 @@ int	main(void)
 	double	**projected_2d;
 	double	*normal;
 	double	*p_point;
-	double	*n_normal;
 	mlx_t	*mlx;
 
 	map = read_map("maps/test_maps/mars.fdf");
 	p_point = set_p_point(map);
 	normal = set_camera_normal(map, p_point);
 	projected_map = project_map(map, normal, p_point);
-	show_vertices(map);
-	n_normal = ft_vect_norm(normal, 3);
-	projected_2d = create_2d_map(projected_map, n_normal, p_point);
+	//show_vertices(map);
+	projected_2d = create_2d_map(projected_map, normal, p_point);
 	map2d_to_screen(projected_2d, 1920, 1080, projected_map->size_x
 		* projected_map->size_y);
-	show_projected_2d(projected_2d, map->size_x, map->size_y);
+	//show_projected_2d(projected_2d, map->size_x, map->size_y);
 	mlx_set_setting(MLX_DECORATED, 1);
 	mlx = mlx_init(1920, 1080, "fdf_test", 1);
 	// Configuración de los hooks
@@ -135,5 +133,5 @@ int	main(void)
 	clean_matrix(projected_2d, map->size_x * map->size_y);
 	clean_map(map);
 	clean_map(projected_map);
-	free(n_normal);
+	free(normal);
 }

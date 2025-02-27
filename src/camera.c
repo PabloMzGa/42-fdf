@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 21:33:57 by pablo             #+#    #+#             */
-/*   Updated: 2025/02/11 22:55:12 by pablo            ###   ########.fr       */
+/*   Updated: 2025/02/27 19:09:59 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ double	*set_camera_normal(t_map *map, double *p_point)
 	double	*normal;
 	double	*n_normal;
 
-	normal = malloc(sizeof(double) * 3);
-	if (!normal)
-		return (perror("Error allocating normal"), NULL);
 	center[0] = map->size_x / 2;
 	center[1] = map->size_y / 2;
 	center[2] = 0;

@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:28:36 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/13 18:50:34 by pablo            ###   ########.fr       */
+/*   Updated: 2025/02/20 19:26:11 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,32 +64,6 @@ static void	set_range(double **map2d, size_t map_size, double uv_min[],
 	if (uv_range[1] == 0)
 		uv_range[1] = 1;
 }
-
-/* double	**map2d_to_screen(double **map2d, size_t width, size_t heigth,
-		size_t map_size)
-{
-	double	uv_min[2];
-	double	uv_offset[2];
-	double	uv_range[2];
-	double	uv_scale[2];
-	size_t	i;
-
-	uv_min[0] = ft_matrix_mincol(map2d, map_size, 0);
-	uv_min[1] = ft_matrix_mincol(map2d, map_size, 1);
-	set_range(map2d, map_size, uv_min, uv_range);
-	uv_scale[0] = (width - 1) / uv_range[0];
-	uv_scale[1] = (heigth - 1) / uv_range[1];
-	i = 0;
-	set_offset(uv_min, uv_offset);
-	while (i < map_size)
-	{
-		map2d[i][0] = (map2d[i][0] + uv_offset[0]) * uv_scale[0];
-		map2d[i][1] = (heigth - 1) - ((map2d[i][1] + uv_offset[1])
-				* uv_scale[1]);
-		++i;
-	}
-	return (map2d);
-} */
 
 /**
  * TODO: Entender mejor esto

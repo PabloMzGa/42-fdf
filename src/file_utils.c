@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:05:27 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/11 21:24:09 by pablo            ###   ########.fr       */
+/*   Updated: 2025/02/27 18:39:28 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static double	*create_vert(int x, int y, int z)
 	vert = malloc(sizeof(double) * 3);
 	if (!vert)
 		return (perror("Error allocating memory for vert"), NULL);
-	vert[0] = x;
-	vert[1] = y;
-	vert[2] = z;
-	printf("Creado vertice (%d, %d, %d)\n", x, y, z);
+	vert[0] = x * SPACING;
+	vert[1] = y * SPACING;
+	vert[2] = z * Z_MULTIPLIER;
+	//printf("Creado vertice (%d, %d, %d)\n", x, y, z);
 	return (vert);
 }
 
@@ -106,7 +106,7 @@ static t_map	*process_file(int fd, t_map *map)
 		map = process_line(line, map, y, &map_size);
 		free(line);
 		line = ft_get_next_line(fd);
-		ft_printf("Linea %d parseada\n", y);
+		//ft_printf("Linea %d parseada\n", y);
 		++y;
 	}
 	map->size_y = y;
