@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:28:36 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/13 18:51:59 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/01 17:47:54 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static double	*get_v_vect(double *normal, double *u_vect)
 	return (v_vect);
 }
 
-double	**create_2d_map(t_map *p_map, double *normal, double *p_point)
+t_map	*create_2d_map(t_map *p_map, double *normal, double *p_point)
 {
 	double	*u_vect;
 	double	*v_vect;
@@ -93,9 +93,6 @@ double	**create_2d_map(t_map *p_map, double *normal, double *p_point)
 		return (perror("Error allocating vects_2d"), NULL);
 	u_vect = get_u_vect(normal);
 	v_vect = get_v_vect(normal, u_vect);
-	printf("Vector Normal:  (%f, %f, %f)\n", normal[0], normal[1], normal[2]);
-	printf("Vector U:  (%f, %f, %f)\n", u_vect[0], u_vect[1], u_vect[2]);
-	printf("Vector V:  (%f, %f, %f)\n", v_vect[0], v_vect[1], v_vect[2]);
 	i = 0;
 	while (i < p_map->size_x * p_map->size_y)
 	{
@@ -108,5 +105,5 @@ double	**create_2d_map(t_map *p_map, double *normal, double *p_point)
 		free(d_vect);
 		++i;
 	}
-	return (free(u_vect), free(v_vect), vects_2d);
+	return (free(u_vect), free(v_vect), alloc_2d_map(p_map, vects_2d));
 }

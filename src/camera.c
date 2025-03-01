@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 21:33:57 by pablo             #+#    #+#             */
-/*   Updated: 2025/02/27 19:09:59 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/01 18:29:01 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ double	*set_p_point(t_map *map)
 	max_z = ft_matrix_maxcol(map->vertices, map->size_x * map->size_y, 2);
 	d = sqrtf(pow(map->size_x / 2, 2) + pow(map->size_y / 2, 2) + pow(max_z / 2,
 				2));
-
 	p_point[0] = (map->size_x / 2) - d;
 	p_point[1] = (map->size_y / 2) - d;
 	p_point[2] = d;
