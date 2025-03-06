@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:21:11 by pablo             #+#    #+#             */
-/*   Updated: 2025/02/13 18:32:45 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/06 17:56:53 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ void	clean_map(t_map *map)
 	}
 	free(map->vertices);
 	free(map);
+}
+
+void clean_smap(t_smap *smap)
+{
+	clean_map(smap->map);
+	free(smap->p_point);
+	free(smap);
 }
 
 void	clean_matrix(double **matrix, size_t size)

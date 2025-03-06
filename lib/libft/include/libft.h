@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 18:17:00 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/11 20:48:44 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/06 17:32:26 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -998,6 +998,29 @@ double				*ft_vect_ortproj(double *a_point, double *normal,
  * @note The caller is responsible of freeing the returned vector.
  */
 double				*ft_vect_prod(double *vect, double n, size_t d);
+
+/**
+ * @brief Rotates a 3D vector around the Z-axis by a given angle in radians.
+ *
+ * This function takes a 3D vector and rotates it around the Z-axis by the
+ * specified angle in radians. The rotation is performed with respect to a
+ * given origin point.
+ *
+ * @param vect The 3D vector to be rotated. It is an array of three doubles
+ *             representing the x, y, and z coordinates of the vector.
+ * @param origin The origin point around which the vector is rotated. It is
+ *               an array of three doubles representing the x, y, and z
+ *               coordinates of the origin.
+ * @param radians The angle in radians by which the vector is to be rotated
+ *                around the Z-axis.
+ * @return A newly allocated array of three doubles representing the rotated
+ *         vector's x, y, and z coordinates. If memory allocation fails, the
+ *         function returns NULL.
+ *
+ * @note The caller is responsible for freeing the memory allocated for the
+ *       returned vector.
+ */
+double	*ft_vect_rotz3d(double *vect, double *origin, double radians);
 
 /**
  * @brief Subtracts two vectors element-wise.

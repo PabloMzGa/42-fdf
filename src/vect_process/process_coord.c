@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_coord.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:28:36 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/03/04 13:37:07 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/06 20:04:25 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,11 @@ static void	**map2d_to_screen(double **map2d, size_t w, size_t h,
 	}
 }
 
-t_map	*set_2d_map(t_map *map, double *p_point)
+t_smap	*set_2d_map(t_map *map, double *p_point)
 {
 	t_map	*projected_map;
 	t_map	*projected_2d;
+	t_smap	*screen_map;
 	double	*normal;
 
 	if (!map)
@@ -146,5 +147,10 @@ t_map	*set_2d_map(t_map *map, double *p_point)
 	clean_map(map);
 	clean_map(projected_map);
 	free(normal);
-	return (projected_2d);
+	screen_map = malloc(sizeof(t_smap *));
+	if (!screen_map)
+		return (NULL);
+	screen_map->map = projected_2d;
+	screen_map->p_point;
+	return (screen_map);
 }

@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include <fcntl.h>
+# include <math.h>
 # include "MLX42/MLX42.h"
 # include "MLX42/MLX42_Int.h"
 
@@ -34,7 +35,7 @@
 /**
  * Multiplier for the Z coordenate
  */
-# define Z_MULTIPLIER 10
+# define Z_MULTIPLIER 2
 /**
  * The space between each point in XY
  */
@@ -46,6 +47,12 @@ typedef struct s_map
 	size_t	size_x;
 	size_t	size_y;
 }			t_map;
+
+typedef struct s_screen_map
+{
+	t_map	*map;
+	double *p_point;
+} t_smap;
 
 /////////////////// HOOKS ///////////////////////
 
@@ -153,7 +160,7 @@ double		*set_camera_normal(t_map *map, double *p_point);
  * @return Pointer to the final 2D map structure, or NULL if the input map is
  *         NULL.
  */
-t_map	*set_2d_map(t_map *map, double *p_point);
+t_smap	*set_2d_map(t_map *map, double *p_point);
 
 /**
  * @brief Sets the perspective point for the map.
@@ -272,5 +279,16 @@ void		clean_map(t_map *map);
  * @param size The number of rows in the matrix.
  */
 void		clean_matrix(double **matrix, size_t size);
+
+/**
+ * @brief Cleans up and frees memory allocated for a t_smap structure.
+ *
+ * This function first calls clean_map to free the memory allocated for the map
+ * within the t_smap structure. It then frees the memory allocated for the
+ * p_point and finally frees the t_smap structure itself.
+ *
+ * @param smap Pointer to the t_smap structure to be cleaned up.
+ */
+void clean_smap(t_smap *smap);
 
 #endif
