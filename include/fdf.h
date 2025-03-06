@@ -13,10 +13,10 @@
 #ifndef FDF_H
 # define FDF_H
 
-# include "MLX42/MLX42.h"
-# include "MLX42/MLX42_Int.h"
 # include "libft.h"
 # include <fcntl.h>
+# include "MLX42/MLX42.h"
+# include "MLX42/MLX42_Int.h"
 
 /**
  * Scale of each dot of the grid. 0 means the dots size will be
@@ -26,7 +26,11 @@
 /**
  * Color of the graph
  */
-# define GRAPH_COLOR 0xffffff
+# define GRAPH_COLOR 0xFFFFFFFF
+/**
+ * Background color of  the graph
+ */
+#define BACKGROUND_COLOR 0x00000000
 /**
  * Multiplier for the Z coordenate
  */
@@ -112,16 +116,12 @@ t_map		*project_map(t_map *map, double *normal, double *a_point);
  * product of the difference vector with these u and v vectors to get the 2D
  * coordinates.
  *
- * @return Pointer to the 2D map (array of 2D vectors) on success,
- *         or NULL on failure.
+ * @return A t_map struct containing the size of p_map and the 2d vectors
  *
  * @note The caller is responsible for freeing the memory allocated for the
  * projected map and its vertices.
  */
-double		**create_2d_map(t_map *p_map, double *normal, double *p_point);
-
-double		**map2d_to_screen(double **map2d, size_t width, size_t heigth,
-				size_t map_size);
+t_map		*create_2d_map(t_map *p_map, double *normal, double *p_point);
 
 /**
  * @brief Sets the camera normal vector based on the map center and a given
@@ -138,7 +138,22 @@ double		**map2d_to_screen(double **map2d, size_t width, size_t heigth,
  * @note The caller is responsible for freeing the allocated memory for the
  * normal vector.
  */
-double	*set_camera_normal(t_map *map, double *p_point);
+double		*set_camera_normal(t_map *map, double *p_point);
+
+/**
+ * @brief Projects a 3D map to a 2D map and maps it to screen coordinates.
+ *
+ * This function takes a 3D map and projects it into a 2D map using the camera
+ * normal and reference point. It then maps the 2D coordinates to screen
+ * coordinates with a resolution of 1920x1080. The original map and intermediate
+ * projected map are cleaned up before returning the final 2D map.
+ *
+ * @param map Pointer to the original 3D map structure.
+ * @param p_point Pointer to the camera position or reference point.
+ * @return Pointer to the final 2D map structure, or NULL if the input map is
+ *         NULL.
+ */
+t_map	*set_2d_map(t_map *map, double *p_point);
 
 /**
  * @brief Sets the perspective point for the map.
@@ -154,9 +169,35 @@ double	*set_camera_normal(t_map *map, double *p_point);
  * @note The caller is responsible for freeing the memory allocated for the
  * projected map and its vertices.
  */
-double	*set_p_point(t_map *map);
+double		*set_p_point(t_map *map);
 
-//////////////////// DRAWERS //////////////////////////
+//////////////////// RENDER	 //////////////////////////
+
+/**
+ * @brief Creates and renders an image using the given map and MLX instance.
+ *
+ * This function creates a new image using the MLX library, initializes its
+ * pixels, and draws points and lines based on the vertices in the map.
+ * The image is then displayed in the MLX window.
+ *
+ * The function performs the following steps:
+ * 1. Calculates the total size of the map based on its dimensions.
+ * 2. Creates a new image with the dimensions of the MLX window.
+ * 3. Initializes the image pixels to a specific color.
+ * 4. Iterates through the map vertices, drawing points and lines using the
+ *    Bresenham algorithm.
+ * 5. Displays the created image in the MLX window.
+ *
+ * If any error occurs during image creation or display, an error message
+ * is printed using perror.
+ *
+ * @param map Pointer to the t_map structure containing the map data.
+ * @param mlx Pointer to the mlx_t structure representing the MLX instance.
+ * @note The function assumes that the map and mlx pointers are valid and
+ *       properly initialized.
+ */
+void	create_image(t_map *map, mlx_t *mlx);
+
 /**
  * @brief Draws a line on the given image from point (x0, y0) to point (x1, y1).
  *
@@ -175,8 +216,8 @@ double	*set_p_point(t_map *map);
  * @note If any of the coordinates exceed INT32_MAX, an error message is printed
  *       and the function returns without drawing the line.
  */
-void	draw_line(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
-	mlx_image_t *img);
+void		draw_line(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
+				mlx_image_t *img);
 
 //////////////////// HELPERS //////////////////////////
 /**
@@ -189,7 +230,24 @@ void	draw_line(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
  * @param x1 Pointer to the x coordinate of the second point.
  * @param y1 Pointer to the y coordinate of the second point.
  */
-void	invert_coords(uint32_t *x0, uint32_t *y0, uint32_t *x1, uint32_t *y1);
+void		invert_coords(uint32_t *x0, uint32_t *y0, uint32_t *x1,
+				uint32_t *y1);
+
+/**
+ * @brief Allocates and initializes a 2D map structure.
+ *
+ * This function allocates memory for a new t_map structure, initializes its
+ * vertices with the provided 2D array, and copies the size information from
+ * the original map. If memory allocation fails, it prints an error message
+ * and returns NULL.
+ *
+ * @param p_map Pointer to the original map structure containing size
+ *              information.
+ * @param vects_2d 2D array of vertices to be assigned to the new map.
+ * @return Pointer to the newly allocated and initialized t_map structure,
+ *         or NULL if memory allocation fails.
+ */
+t_map		*alloc_2d_map(t_map *p_map, double **vects_2d);
 
 //////////////////// CLEAN UTILS //////////////////////
 

@@ -9,6 +9,7 @@
                 "-g",
                 "${workspaceFolder}/**/*.c",
                 "${workspaceFolder}/**/**/*.c",
+				"${workspaceFolder}/src/render/**/*.c",
                 "${workspaceFolder}/lib/**/**/*.a",
                 "${workspaceFolder}/lib/libft/src/*.c",
                 "${workspaceFolder}/lib/libft/src/**/*.c",

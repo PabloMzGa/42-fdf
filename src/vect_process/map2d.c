@@ -6,12 +6,30 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:28:36 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/03/01 17:47:54 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/04 12:49:49 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/**
+ * @brief Assigns a vector based on the given normal vector and position.
+ *
+ * This function assigns values to a vector `a_vect` based on the provided
+ * normal vector `normal` and the position `pos`. The assignment is done
+ * differently depending on the value of `pos`.
+ *
+ * @param a_vect A pointer to the vector to be assigned.
+ * @param normal The normal vector used for assignment.
+ * @param pos The position index determining the assignment pattern.
+ *            - If pos is 0, assigns values based on the first pattern.
+ *            - If pos is 1, assigns values based on the second pattern.
+ *            - If pos is 2, assigns values based on the third pattern.
+ *            - If pos is any other value, an error message is printed and NULL
+ *              is returned.
+ *
+ * @return The assigned vector `a_vect`, or NULL if an error occurred.
+ */
 static double	*assign_a_vector(double **a_vect, double *normal, size_t pos)
 {
 	if (pos == 0)
@@ -37,6 +55,21 @@ static double	*assign_a_vector(double **a_vect, double *normal, size_t pos)
 	return (*a_vect);
 }
 
+/**
+ * @brief Allocates and computes a vector based on the given normal vector.
+ *
+ * This function allocates memory for a new vector, normalizes the input normal
+ * vector, assigns a new vector based on the normalized values, and then
+ * normalizes the resulting vector.
+ *
+ * @param normal A pointer to a double array representing the normal vector.
+ *               The function expects this array to have 3 elements.
+ *
+ * @return A pointer to the newly allocated and computed vector, or NULL if
+ *         memory allocation fails.
+ *
+ * @note The caller is responsible for freeing the returned vector.
+ */
 static double	*get_a_vect(double *normal)
 {
 	double	*a_vect;
@@ -50,11 +83,27 @@ static double	*get_a_vect(double *normal)
 	free(normal);
 	aux = a_vect;
 	a_vect = ft_vect_norm(a_vect, 3);
-	printf("Vector A:  (%f, %f, %f)\n", a_vect[0], a_vect[1], a_vect[2]);
 	free(aux);
 	return (a_vect);
 }
 
+/**
+ * @brief Computes the unit vector (u_vect) orthogonal to the given normal
+ * vector.
+ *
+ * This function calculates a unit vector that is orthogonal to the provided
+ * normal vector. It first computes an arbitrary vector (a_vect) that is not
+ * parallel to the normal vector. Then, it calculates the cross product of
+ * a_vect and the normal vector to get an auxiliary vector (aux).
+ * Finally, it normalizes the auxiliary vector to obtain the unit vector
+ * (u_vect).
+ *
+ * @param normal A pointer to the normal vector (array of doubles).
+ * @return A pointer to the unit vector (u_vect) orthogonal to the normal
+ *         vector.
+ *
+ * @note The caller is responsible for freeing the returned pointer.
+ */
 static double	*get_u_vect(double *normal)
 {
 	double	*a_vect;
@@ -69,6 +118,21 @@ static double	*get_u_vect(double *normal)
 	return (u_vect);
 }
 
+/**
+ * @brief Computes the v vector which is orthogonal to the given normal
+ * and u vectors.
+ *
+ * This function calculates the cross product of the normal vector and the
+ * u vector, normalizes the resulting vector, and returns it as the v vector.
+ *
+ * @param normal A pointer to the normal vector.
+ * @param u_vect A pointer to the u vector.
+ * @return A pointer to the v vector, which is orthogonal to both the normal
+ *         and u vectors.
+ *
+ * @note The caller is responsible for freeing the memory allocated for the
+ *       returned v vector.
+ */
 static double	*get_v_vect(double *normal, double *u_vect)
 {
 	double	*aux;

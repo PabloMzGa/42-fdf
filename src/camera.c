@@ -6,14 +6,12 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 21:33:57 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/01 18:29:01 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/04 13:19:47 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-/**
- * TODO: Creo que se esta viendo todo desde debajo
- */
+
 double	*set_camera_normal(t_map *map, double *p_point)
 {
 	double	center[3];
@@ -26,7 +24,6 @@ double	*set_camera_normal(t_map *map, double *p_point)
 	normal = ft_vect_sub(center, p_point, 3);
 	n_normal = ft_vect_norm(normal, 3);
 	free(normal);
-	printf("Normal: (%f, %f, %f)\n", n_normal[0], n_normal[1], n_normal[2]);
 	return (n_normal);
 }
 
