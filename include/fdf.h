@@ -13,11 +13,15 @@
 #ifndef FDF_H
 # define FDF_H
 
-# include "libft.h"
 # include <fcntl.h>
 # include <math.h>
+# include "libft.h"
 # include "MLX42/MLX42.h"
 # include "MLX42/MLX42_Int.h"
+
+# ifndef M_PI
+#  define M_PI (3.14159265358979323846264338327950288)
+# endif
 
 /**
  * Scale of each dot of the grid. 0 means the dots size will be
@@ -31,7 +35,7 @@
 /**
  * Background color of  the graph
  */
-#define BACKGROUND_COLOR 0x00000000
+# define BACKGROUND_COLOR 0x00000000
 /**
  * Multiplier for the Z coordenate
  */
@@ -41,6 +45,11 @@
  */
 # define SPACING 10
 
+/**
+ * Define how much degrees the model should rotate every frame
+ */
+# define ROT_DEG 1
+
 typedef struct s_map
 {
 	double	**vertices;
@@ -48,11 +57,13 @@ typedef struct s_map
 	size_t	size_y;
 }			t_map;
 
-typedef struct s_screen_map
+typedef struct s_global_map
 {
 	t_map	*map;
-	double *p_point;
-} t_smap;
+	double	*p_point;
+	double	*center;
+	mlx_t	*mlx;
+}			t_gmap;
 
 /////////////////// HOOKS ///////////////////////
 
@@ -131,21 +142,17 @@ t_map		*project_map(t_map *map, double *normal, double *a_point);
 t_map		*create_2d_map(t_map *p_map, double *normal, double *p_point);
 
 /**
- * @brief Sets the camera normal vector based on the map center and a given
- *        point.
+ * @brief Sets the camera normal vector based on the given gmap structure.
  *
- * This function calculates the normal vector from the center of the map to a
- * given point. It allocates memory for the normal vector and returns it.
+ * This function calculates the normal vector for the camera by subtracting
+ * the center point of the gmap from the p_point of the gmap. The resulting
+ * vector is then normalized.
  *
- * @param map A pointer to the t_map structure containing the map dimensions.
- * @param p_point A pointer to a double array representing the point
- *                coordinates.
- * @return A pointer to a double array representing the normal vector.
- *
- * @note The caller is responsible for freeing the allocated memory for the
- * normal vector.
+ * @param gmap A pointer to the gmap structure containing the center and p_point.
+ * @return A pointer to the normalized normal vector. The caller is responsible
+ *         for freeing the returned pointer.
  */
-double		*set_camera_normal(t_map *map, double *p_point);
+double	*set_camera_normal(t_gmap *gmap);
 
 /**
  * @brief Projects a 3D map to a 2D map and maps it to screen coordinates.
@@ -160,7 +167,7 @@ double		*set_camera_normal(t_map *map, double *p_point);
  * @return Pointer to the final 2D map structure, or NULL if the input map is
  *         NULL.
  */
-t_smap	*set_2d_map(t_map *map, double *p_point);
+t_map		*set_2d_map(t_gmap *gmap);
 
 /**
  * @brief Sets the perspective point for the map.
@@ -178,7 +185,7 @@ t_smap	*set_2d_map(t_map *map, double *p_point);
  */
 double		*set_p_point(t_map *map);
 
-//////////////////// RENDER	 //////////////////////////
+//////////////////// RENDER //////////////////////////
 
 /**
  * @brief Creates and renders an image using the given map and MLX instance.
@@ -203,7 +210,7 @@ double		*set_p_point(t_map *map);
  * @note The function assumes that the map and mlx pointers are valid and
  *       properly initialized.
  */
-void	create_image(t_map *map, mlx_t *mlx);
+void		render_map(t_map *map, mlx_t *mlx);
 
 /**
  * @brief Draws a line on the given image from point (x0, y0) to point (x1, y1).
@@ -239,6 +246,23 @@ void		draw_line(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
  */
 void		invert_coords(uint32_t *x0, uint32_t *y0, uint32_t *x1,
 				uint32_t *y1);
+
+/**
+ * @brief - Calculates the center coordinates of a given map.
+ *
+ * This function allocates memory for a 3-element array of doubles and
+ * calculates the center coordinates of the map. The center coordinates
+ * are determined by taking the midpoint of the map's width (size_x),
+ * height (size_y), and the maximum z-coordinate value (max_z).
+ *
+ * @param map Pointer to the t_map structure containing the map data.
+ * @return A pointer to a dynamically allocated array of doubles
+ *         containing the center coordinates [center_x, center_y, center_z].
+ *         Returns NULL if memory allocation fails.
+ * @note The caller is responsible for freeing the memory allocated for the
+ *       vector
+ */
+double	*get_center(t_map *map);
 
 /**
  * @brief Allocates and initializes a 2D map structure.
@@ -289,6 +313,8 @@ void		clean_matrix(double **matrix, size_t size);
  *
  * @param smap Pointer to the t_smap structure to be cleaned up.
  */
-void clean_smap(t_smap *smap);
+void		clean_smap(t_gmap *smap);
+
+void	rotate_wrapper(void *param);
 
 #endif

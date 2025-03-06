@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:30:18 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/04 13:29:10 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/06 21:42:47 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,13 @@ static void	draw_point(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 	}
 }
 
-void	create_image(t_map *map, mlx_t *mlx)
+/**
+ * TODO: NEcesito reutilizar la imagen y no crear una nueva cada vez.
+ * Para ello tengo que guardar el return de mlx_image_to_window. Creo
+ * que lo mejor es almacenarlo en el gmap.
+ *
+ */
+void	render_map(t_map *map, mlx_t *mlx)
 {
 	mlx_image_t	*img;
 	size_t		size;

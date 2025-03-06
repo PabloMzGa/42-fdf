@@ -6,7 +6,7 @@
 /*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:28:36 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/03/06 20:04:25 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:36:25 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,27 +130,20 @@ static void	**map2d_to_screen(double **map2d, size_t w, size_t h,
 	}
 }
 
-t_smap	*set_2d_map(t_map *map, double *p_point)
+t_map	*set_2d_map(t_gmap *gmap)
 {
 	t_map	*projected_map;
 	t_map	*projected_2d;
-	t_smap	*screen_map;
 	double	*normal;
 
-	if (!map)
+	if (!gmap || !gmap->map)
 		return (NULL);
-	normal = set_camera_normal(map, p_point);
-	projected_map = project_map(map, normal, p_point);
-	projected_2d = create_2d_map(projected_map, normal, p_point);
+	normal = set_camera_normal(gmap);
+	projected_map = project_map(gmap->map, normal, gmap->p_point);
+	projected_2d = create_2d_map(projected_map, normal, gmap->p_point);
 	map2d_to_screen(projected_2d->vertices, 1920, 1080, projected_map->size_x
 		* projected_map->size_y);
-	clean_map(map);
 	clean_map(projected_map);
 	free(normal);
-	screen_map = malloc(sizeof(t_smap *));
-	if (!screen_map)
-		return (NULL);
-	screen_map->map = projected_2d;
-	screen_map->p_point;
-	return (screen_map);
+	return (projected_2d);
 }
