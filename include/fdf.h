@@ -13,9 +13,9 @@
 #ifndef FDF_H
 # define FDF_H
 
+# include "libft.h"
 # include <fcntl.h>
 # include <math.h>
-# include "libft.h"
 # include "MLX42/MLX42.h"
 # include "MLX42/MLX42_Int.h"
 
@@ -31,7 +31,7 @@
 /**
  * Color of the graph
  */
-# define GRAPH_COLOR 0xFFFFFFFF
+# define GRAPH_COLOR 0xB94EE4FF
 /**
  * Background color of  the graph
  */
@@ -44,26 +44,29 @@
  * The space between each point in XY
  */
 # define SPACING 10
-
 /**
  * Define how much degrees the model should rotate every frame
  */
 # define ROT_DEG 1
-
+# define WIDTH 1920
+# define HEIGHT 1080
 typedef struct s_map
 {
-	double	**vertices;
-	size_t	size_x;
-	size_t	size_y;
-}			t_map;
+	double		**vertices;
+	size_t		size_x;
+	size_t		size_y;
+}				t_map;
 
 typedef struct s_global_map
 {
-	t_map	*map;
-	double	*p_point;
-	double	*center;
-	mlx_t	*mlx;
-}			t_gmap;
+	t_map		*map;
+	double		*p_point;
+	double		*center;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	double		scale_factor;
+	size_t 		debug_counter;
+}				t_gmap;
 
 /////////////////// HOOKS ///////////////////////
 
@@ -76,7 +79,7 @@ typedef struct s_global_map
  * @param keydata The key data containing information about the key event.
  * @param param A pointer to the window or application context.
  */
-void		exit_keyhook(mlx_key_data_t keydata, void *param);
+void			exit_keyhook(mlx_key_data_t keydata, void *param);
 
 ///////////////////// VERTEX PROCESSING //////////////////////
 
@@ -93,7 +96,7 @@ void		exit_keyhook(mlx_key_data_t keydata, void *param);
  *
  * Return: A pointer to the processed t_map structure, or NULL on failure.
  */
-t_map		*read_map(char *path);
+t_map			*read_map(char *path);
 
 /**
  * @brief Projects the vertices of a map onto a plane defined by a normal vector
@@ -115,7 +118,7 @@ t_map		*read_map(char *path);
  * @note The caller is responsible for freeing the memory allocated for the
  * projected map and its vertices.
  */
-t_map		*project_map(t_map *map, double *normal, double *a_point);
+t_map			*project_map(t_map *map, double *normal, double *a_point);
 
 /**
  * @brief Creates a 2D map from a 3D map using a normal vector and a
@@ -139,7 +142,7 @@ t_map		*project_map(t_map *map, double *normal, double *a_point);
  * @note The caller is responsible for freeing the memory allocated for the
  * projected map and its vertices.
  */
-t_map		*create_2d_map(t_map *p_map, double *normal, double *p_point);
+t_map			*create_2d_map(t_map *p_map, double *normal, double *p_point);
 
 /**
  * @brief Sets the camera normal vector based on the given gmap structure.
@@ -148,11 +151,12 @@ t_map		*create_2d_map(t_map *p_map, double *normal, double *p_point);
  * the center point of the gmap from the p_point of the gmap. The resulting
  * vector is then normalized.
  *
+
  * @param gmap A pointer to the gmap structure containing the center and p_point.
  * @return A pointer to the normalized normal vector. The caller is responsible
  *         for freeing the returned pointer.
  */
-double	*set_camera_normal(t_gmap *gmap);
+double			*set_camera_normal(t_gmap *gmap);
 
 /**
  * @brief Projects a 3D map to a 2D map and maps it to screen coordinates.
@@ -167,7 +171,7 @@ double	*set_camera_normal(t_gmap *gmap);
  * @return Pointer to the final 2D map structure, or NULL if the input map is
  *         NULL.
  */
-t_map		*set_2d_map(t_gmap *gmap);
+t_map			*set_2d_map(t_gmap *gmap);
 
 /**
  * @brief Sets the perspective point for the map.
@@ -183,34 +187,24 @@ t_map		*set_2d_map(t_gmap *gmap);
  * @note The caller is responsible for freeing the memory allocated for the
  * projected map and its vertices.
  */
-double		*set_p_point(t_map *map);
+double			*set_p_point(t_map *map);
 
 //////////////////// RENDER //////////////////////////
 
 /**
- * @brief Creates and renders an image using the given map and MLX instance.
+ * @brief Renders the map onto the global map (gmap) image.
  *
- * This function creates a new image using the MLX library, initializes its
- * pixels, and draws points and lines based on the vertices in the map.
- * The image is then displayed in the MLX window.
+ * This function creates a new MLX image if it doesn't already exist, clears the
+ * image to the background color, and then iterates through the map vertices to
+ * draw points and lines using the Bresenham algorithm. Finally, it displays the
+ * image in the MLX window.
  *
- * The function performs the following steps:
- * 1. Calculates the total size of the map based on its dimensions.
- * 2. Creates a new image with the dimensions of the MLX window.
- * 3. Initializes the image pixels to a specific color.
- * 4. Iterates through the map vertices, drawing points and lines using the
- *    Bresenham algorithm.
- * 5. Displays the created image in the MLX window.
- *
- * If any error occurs during image creation or display, an error message
- * is printed using perror.
- *
- * @param map Pointer to the t_map structure containing the map data.
- * @param mlx Pointer to the mlx_t structure representing the MLX instance.
- * @note The function assumes that the map and mlx pointers are valid and
- *       properly initialized.
+ * @param map Pointer to the map structure containing the vertices and
+ *            dimensions.
+ * @param gmap Double pointer to the global map structure containing the MLX
+ *             image and context.
  */
-void		render_map(t_map *map, mlx_t *mlx);
+void	render_map(t_map *map, t_gmap **gmap);
 
 /**
  * @brief Draws a line on the given image from point (x0, y0) to point (x1, y1).
@@ -230,8 +224,8 @@ void		render_map(t_map *map, mlx_t *mlx);
  * @note If any of the coordinates exceed INT32_MAX, an error message is printed
  *       and the function returns without drawing the line.
  */
-void		draw_line(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
-				mlx_image_t *img);
+void			draw_line(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
+					mlx_image_t *img);
 
 //////////////////// HELPERS //////////////////////////
 /**
@@ -244,8 +238,8 @@ void		draw_line(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
  * @param x1 Pointer to the x coordinate of the second point.
  * @param y1 Pointer to the y coordinate of the second point.
  */
-void		invert_coords(uint32_t *x0, uint32_t *y0, uint32_t *x1,
-				uint32_t *y1);
+void			invert_coords(uint32_t *x0, uint32_t *y0, uint32_t *x1,
+					uint32_t *y1);
 
 /**
  * @brief - Calculates the center coordinates of a given map.
@@ -262,7 +256,7 @@ void		invert_coords(uint32_t *x0, uint32_t *y0, uint32_t *x1,
  * @note The caller is responsible for freeing the memory allocated for the
  *       vector
  */
-double	*get_center(t_map *map);
+double			*get_center(t_map *map);
 
 /**
  * @brief Allocates and initializes a 2D map structure.
@@ -278,7 +272,7 @@ double	*get_center(t_map *map);
  * @return Pointer to the newly allocated and initialized t_map structure,
  *         or NULL if memory allocation fails.
  */
-t_map		*alloc_2d_map(t_map *p_map, double **vects_2d);
+t_map			*alloc_2d_map(t_map *p_map, double **vects_2d);
 
 //////////////////// CLEAN UTILS //////////////////////
 
@@ -290,7 +284,7 @@ t_map		*alloc_2d_map(t_map *p_map, double **vects_2d);
  * freeing each individual vertex. After all vertices are freed, it frees the
  * vertices array itself and finally frees the t_map structure.
  */
-void		clean_map(t_map *map);
+void			clean_map(t_map *map);
 
 /**
  * @brief Frees the memory allocated for a 2D matrix.
@@ -302,7 +296,7 @@ void		clean_map(t_map *map);
  * @param matrix A pointer to the 2D matrix to be freed.
  * @param size The number of rows in the matrix.
  */
-void		clean_matrix(double **matrix, size_t size);
+void			clean_matrix(double **matrix, size_t size);
 
 /**
  * @brief Cleans up and frees memory allocated for a t_smap structure.
@@ -313,8 +307,8 @@ void		clean_matrix(double **matrix, size_t size);
  *
  * @param smap Pointer to the t_smap structure to be cleaned up.
  */
-void		clean_smap(t_gmap *smap);
+void			clean_smap(t_gmap *smap);
 
-void	rotate_wrapper(void *param);
+void			rotate_wrapper(void *param);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vect_rotz3d.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:51:16 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/06 21:33:09 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:30:18 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ double	*ft_vect_rotz3d(double *vect, double *origin, double radians)
 		+ origin[0];
 	rotated_p[1] = (sin(radians) * vect[0]) + (cos(radians) * vect[1])
 		+ origin[1];
-	rotated_p[2] = vect[3] + origin[2];
+	rotated_p[2] = vect[2] + origin[2];
 	return (rotated_p);
 }

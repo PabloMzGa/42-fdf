@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${fileDirname}/${fileBasenameNoExtension}", // Adjust this to match your output executable
-			"args": ["maps/test_maps/mars.fdf"],
+			"args": ["maps/test_maps/julia.fdf"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:27:12 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/06 21:43:08 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:18:14 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdio.h>
 
-/**
- * TODO: Puede que sea por el crear una imagen cada vez, pero parece que no
- * está rotando bien.
- */
 void	rotate(t_gmap **gmap)
 {
 	t_map	*map_2d;
@@ -25,7 +22,8 @@ void	rotate(t_gmap **gmap)
 	(*gmap)->p_point = ft_vect_rotz3d((*gmap)->p_point, (*gmap)->center,
 			radians);
 	map_2d = set_2d_map((*gmap));
-	render_map(map_2d, (*gmap)->mlx);
+	render_map(map_2d, gmap);
+	printf("Frame %i\n", (*gmap)->debug_counter++);
 	clean_map(map_2d);
 }
 
