@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vect_norm.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:51:16 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/06 17:08:19 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:22:05 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 double *ft_vect_norm(double  *vect, size_t d)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:34:05 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/01/30 21:06:56 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:22:05 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 void	*ft_realloc(void *ptr, size_t old_size, size_t size)
 {

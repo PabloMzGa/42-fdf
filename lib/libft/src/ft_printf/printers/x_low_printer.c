@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   x_low_printer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 21:08:11 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/01/23 18:56:06 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:24:14 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/ft_printf/ft_printf.h"
+#include "ft_printf.h"
 
 int	x_low_printer(va_list arg)
 {

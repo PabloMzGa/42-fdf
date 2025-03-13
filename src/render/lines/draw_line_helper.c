@@ -6,15 +6,15 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:51:43 by pablo             #+#    #+#             */
-/*   Updated: 2025/02/19 21:21:25 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/13 18:27:38 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	invert_coords(uint32_t *x0, uint32_t *y0, uint32_t *x1, uint32_t *y1)
+void	invert_coords(double *x0, double *y0, double *x1, double *y1)
 {
-	uint32_t	temp;
+	double	temp;
 
 	temp = *x0;
 	*x0 = *x1;

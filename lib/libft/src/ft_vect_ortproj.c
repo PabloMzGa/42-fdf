@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vect_ortproj.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:00:54 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/06 19:55:39 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:22:05 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 double	*ft_vect_ortproj(double *a_point, double *normal, double *p_point,
 		size_t dimension)

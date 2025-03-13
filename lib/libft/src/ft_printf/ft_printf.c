@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:59:18 by pabmart2          #+#    #+#             */
-/*   Updated: 2024/11/21 18:32:24 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:23:54 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf/ft_printf.h"
+#include "ft_printf.h"
 
 static int	call_printer(char const *str, va_list args)
 {

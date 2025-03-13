@@ -31,7 +31,7 @@
 /**
  * Color of the graph
  */
-# define GRAPH_COLOR 0xB94EE4FF
+# define GRAPH_COLOR 0xFFFFFFFF
 /**
  * Background color of  the graph
  */
@@ -65,7 +65,6 @@ typedef struct s_global_map
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	double		scale_factor;
-	size_t 		debug_counter;
 }				t_gmap;
 
 /////////////////// HOOKS ///////////////////////
@@ -204,10 +203,10 @@ double			*set_p_point(t_map *map);
  * @param gmap Double pointer to the global map structure containing the MLX
  *             image and context.
  */
-void	render_map(t_map *map, t_gmap **gmap);
+void	render_map(t_map *map, t_gmap *gmap);
 
 /**
- * @brief Draws a line on the given image from point (x0, y0) to point (x1, y1).
+  * @brief Draws a line between two points on an image.
  *
  * This function determines whether to draw the line horizontally or vertically
  * based on the difference between the x and y coordinates. It ensures that the
@@ -215,17 +214,16 @@ void	render_map(t_map *map, t_gmap **gmap);
  *
  * It's based on the Bresenham's Line Algorithm
  *
- * @param x0 The x-coordinate of the starting point.
- * @param y0 The y-coordinate of the starting point.
- * @param x1 The x-coordinate of the ending point.
- * @param y1 The y-coordinate of the ending point.
+ * @param p0 A pointer to an array containing the x and y coordinates of the
+ *           first point.
+ * @param p1 A pointer to an array containing the x and y coordinates of the
+ *           second point.
  * @param img A pointer to the image where the line will be drawn.
  *
  * @note If any of the coordinates exceed INT32_MAX, an error message is printed
  *       and the function returns without drawing the line.
  */
-void			draw_line(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
-					mlx_image_t *img);
+void	draw_line(double p0[], double p1[], mlx_image_t *img);
 
 //////////////////// HELPERS //////////////////////////
 /**
@@ -238,8 +236,7 @@ void			draw_line(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1,
  * @param x1 Pointer to the x coordinate of the second point.
  * @param y1 Pointer to the y coordinate of the second point.
  */
-void			invert_coords(uint32_t *x0, uint32_t *y0, uint32_t *x1,
-					uint32_t *y1);
+void	invert_coords(double *x0, double *y0, double *x1, double *y1);
 
 /**
  * @brief - Calculates the center coordinates of a given map.
@@ -277,26 +274,15 @@ t_map			*alloc_2d_map(t_map *p_map, double **vects_2d);
 //////////////////// CLEAN UTILS //////////////////////
 
 /**
- * clean_map - Frees the memory allocated for a t_map structure.
- * @map: Pointer to the t_map structure to be cleaned.
+ * @brief Frees the memory allocated for a t_map structure.
  *
  * This function iterates through the vertices array in the t_map structure,
  * freeing each individual vertex. After all vertices are freed, it frees the
  * vertices array itself and finally frees the t_map structure.
+ *
+ * @param map Pointer to the t_map structure to be cleaned.
  */
 void			clean_map(t_map *map);
-
-/**
- * @brief Frees the memory allocated for a 2D matrix.
- *
- * This function iterates through each row of the matrix, freeing the memory
- * allocated for each row, and then frees the memory allocated for the matrix
- * itself.
- *
- * @param matrix A pointer to the 2D matrix to be freed.
- * @param size The number of rows in the matrix.
- */
-void			clean_matrix(double **matrix, size_t size);
 
 /**
  * @brief Cleans up and frees memory allocated for a t_smap structure.
@@ -307,8 +293,21 @@ void			clean_matrix(double **matrix, size_t size);
  *
  * @param smap Pointer to the t_smap structure to be cleaned up.
  */
-void			clean_smap(t_gmap *smap);
+void			clean_gmap(t_gmap *smap);
 
+
+//////////////////// WRAPPERS //////////////////////
+
+/**
+ * @brief Wrapper function to perform rotation on a given map.
+ *
+ * This function serves as a wrapper to the rotate function, casting the
+ * provided parameter to the appropriate type and passing it to the rotate
+ * function.
+ *
+ * @param param A void pointer to the parameter that will be cast to a
+ *              t_gmap type and passed to the rotate function.
+ */
 void			rotate_wrapper(void *param);
 
 #endif

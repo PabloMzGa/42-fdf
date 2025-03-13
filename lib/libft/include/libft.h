@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 18:17:00 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/03/06 17:32:26 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:51:44 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,8 @@ int					ft_lstsize(t_list *lst);
 /**
  * @brief Frees a dynamically allocated 2D array.
  *
- * This function frees each element of a 2D array and then frees the array itself.
+
+	* This function frees each element of a 2D array and then frees the array itself.
  * It can handle arrays where the size is known or unknown.
  *
  * @param array The 2D array to be freed.
@@ -306,7 +307,7 @@ void				ft_matrix_free(void **array, size_t size);
  * @param array A null-terminated array of pointers.
  * @return The number of elements in the array, excluding the null pointer.
  */
-size_t	ft_matrix_len(void **array);
+size_t				ft_matrix_len(void **array);
 
 /**
  * @brief Finds the maximum value in a specified column of a 2D array.
@@ -554,7 +555,7 @@ char				**ft_split(char const *s, char c);
  * @return A pointer to the array of substrings, or NULL if memory
  *         allocation fails.
  */
-char	**ft_splitm(char const *s, char *cs);
+char				**ft_splitm(char const *s, char *cs);
 
 /**
  * @brief Searches for the first occurrence of a character in a string.
@@ -590,7 +591,7 @@ char				*ft_strchr(const char *s, int c);
  *       If memory allocation fails, the function returns NULL and prints an
  *       error message.
  */
-char	*ft_strchrm(const char *s, char *c);
+char				*ft_strchrm(const char *s, char *c);
 
 /**
  * @brief Duplicates a string.
@@ -1020,7 +1021,8 @@ double				*ft_vect_prod(double *vect, double n, size_t d);
  * @note The caller is responsible for freeing the memory allocated for the
  *       returned vector.
  */
-double	*ft_vect_rotz3d(double *vect, double *origin, double radians);
+double				*ft_vect_rotz3d(double *vect, double *origin,
+						double radians);
 
 /**
  * @brief Subtracts two vectors element-wise.

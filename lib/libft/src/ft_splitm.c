@@ -6,11 +6,11 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 18:26:29 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/11 20:49:42 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/13 20:22:05 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 /**
  * @brief Splits a string into substrings based on a set of delimiter

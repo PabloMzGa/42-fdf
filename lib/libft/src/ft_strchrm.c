@@ -6,11 +6,11 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:06:55 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/11 21:08:19 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/13 20:27:07 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 char	*ft_strchrm(const char *s, char *c)
 {
@@ -29,7 +29,7 @@ char	*ft_strchrm(const char *s, char *c)
 	uc[i] = '\0';
 	while (*s)
 	{
-		if (ft_strchr(uc, *s))
+		if (ft_strchr((const char *)uc, *s))
 			return (free(uc), (char *)s);
 		s++;
 	}

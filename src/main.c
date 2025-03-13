@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 12:30:14 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/03/11 20:18:33 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/13 19:59:58 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_gmap	*gmap_init(char *path)
 	gmap->map = read_map(path);
 	gmap->p_point = set_p_point(gmap->map);
 	gmap->center = get_center(gmap->map);
-	gmap->debug_counter = 0;
 	gmap->scale_factor = 0;
 	return (gmap);
 }
@@ -37,6 +36,8 @@ int	main(int argc, char **argv)
 	t_gmap	*gmap;
 	t_map	*initial_2dmap;
 
+	if(argc != 2)
+		return (perror("Invalid argument count"), 1);
 	if (!argv[1])
 		return (perror("Error: no map path detected"), 1);
 	gmap = gmap_init(argv[1]);
@@ -46,10 +47,10 @@ int	main(int argc, char **argv)
 	mlx_set_setting(MLX_DECORATED, 1);
 	mlx = mlx_init(WIDTH, HEIGHT, "fdf_test", 0);
 	gmap->mlx = mlx;
-	// gmap->img = NULL;
-	render_map(initial_2dmap, &gmap);
+	render_map(initial_2dmap, gmap);
 	mlx_key_hook(mlx, &exit_keyhook, mlx);
-	//mlx_loop_hook(mlx, &rotate_wrapper, &gmap);
+	mlx_loop_hook(mlx, &rotate_wrapper, gmap);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
+	clean_gmap(gmap);
 }

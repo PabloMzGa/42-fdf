@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_printer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:42:26 by pabmart2          #+#    #+#             */
-/*   Updated: 2024/11/21 18:32:16 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:23:58 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf/ft_printf.h"
+#include "ft_printf.h"
 
 /**
  * @brief This file defines an array of structures that map format specifiers

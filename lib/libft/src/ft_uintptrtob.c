@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_uintptrtob.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:39:57 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/01/30 17:52:54 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:22:05 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 /**
  * @brief Recursively converts an unsigned integer to a string representation

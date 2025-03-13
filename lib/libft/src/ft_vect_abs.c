@@ -6,11 +6,11 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:32:41 by pablo             #+#    #+#             */
-/*   Updated: 2025/02/07 17:46:20 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/13 20:22:05 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 double	*ft_vect_abs(double *vect, size_t d)
 {

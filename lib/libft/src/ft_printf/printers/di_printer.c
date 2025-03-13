@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   di_printer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 19:57:48 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/01/23 18:55:54 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:24:14 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/ft_printf/ft_printf.h"
+#include "ft_printf.h"
 
 int	di_printer(va_list arg)
 {

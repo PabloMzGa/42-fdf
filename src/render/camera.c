@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 21:33:57 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/06 21:20:01 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:00:15 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 double	*set_camera_normal(t_gmap *gmap)
 {
-	double	center[3];
 	double	*normal;
 	double	*n_normal;
 
@@ -30,7 +29,7 @@ double	*set_p_point(t_map *map)
 	double	max_z;
 	double	d;
 	double	isometric_dir[3];
-	double 	*iso_norm;
+	double	*iso_norm;
 
 	p_point = malloc(sizeof(double) * 3);
 	if (!p_point)
@@ -45,5 +44,6 @@ double	*set_p_point(t_map *map)
 	p_point[0] = (map->size_x / 2) + iso_norm[0] * d;
 	p_point[1] = (map->size_y / 2) + iso_norm[1] * d;
 	p_point[2] = (max_z / 2) + iso_norm[2] * d;
+	free(iso_norm);
 	return (p_point);
 }

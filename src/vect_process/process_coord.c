@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:28:36 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/03/11 20:08:02 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/13 20:04:47 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_map	*project_map(t_map *map, double *normal, double *p_point)
 	size_t	map_size;
 	size_t	i;
 
-	projected_map = malloc(sizeof(t_map *));
-	if (!project_map)
+	projected_map = malloc(sizeof(t_map));
+	if (!projected_map)
 		return (perror("Error allocating  projected map"), NULL);
 	map_size = map->size_x * map->size_y;
 	projected_map->vertices = malloc(sizeof(double *) * map_size);
@@ -105,7 +105,7 @@ static void	set_range(double **map2d, size_t map_size, double uv_min[],
  * @param h The height of the screen.
  * @param map_size The number of points in the 2D map.
  */
-static void	**map2d_to_screen(double **map2d, t_gmap *gmap)
+static void	map2d_to_screen(double **map2d, t_gmap *gmap)
 {
 	double	uv_min[2];
 	double	uv_offset[2];
@@ -137,7 +137,6 @@ t_map	*set_2d_map(t_gmap *gmap)
 {
 	t_map	*projected_map;
 	t_map	*projected_2d;
-	size_t	size[2];
 	double	*normal;
 
 	if (!gmap || !gmap->map)

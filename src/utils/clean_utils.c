@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:21:11 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/06 21:10:53 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:08:38 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,11 @@ void	clean_map(t_map *map)
 	free(map);
 }
 
-void clean_smap(t_gmap *smap)
+void	clean_gmap(t_gmap *gmap)
 {
-	clean_map(smap->map);
-	free(smap->p_point);
-	free(smap);
+	clean_map(gmap->map);
+	free(gmap->p_point);
+	free(gmap->center);
+	free(gmap);
 }
 
-void	clean_matrix(double **matrix, size_t size)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < size)
-	{
-		free(matrix[i]);
-		++i;
-	}
-	free(matrix);
-}
