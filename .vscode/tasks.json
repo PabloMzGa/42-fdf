@@ -21,6 +21,8 @@
                 "-I${workspaceFolder}/lib/MLX42/include/glad",
                 "-I${workspaceFolder}/lib/MLX42/include/KHR",
                 "-I${workspaceFolder}/lib/libft/include",
+                "-I${workspaceFolder}/lib/libft/include/ft_printf",
+                "-I${workspaceFolder}/lib/libft/include/ft_get_next_line",
                 "-I${workspaceFolder}/maps",
                 "-lglfw", //Añade la biblioteca de glfw que sirve para contextos y OpenGL
                 "-lm", //Añade la biblioteca de math.h

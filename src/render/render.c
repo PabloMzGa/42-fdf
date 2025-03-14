@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 17:30:18 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/13 19:02:13 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/14 17:25:59 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,14 +102,14 @@ static void	add_image(t_gmap *gmap)
 	}
 }
 
-void	render_map(t_map *map, t_gmap *gmap)
+int	render_map(t_map *map, t_gmap *gmap)
 {
 	size_t	i;
 	size_t	xy[2];
 
 	add_image(gmap);
 	if (!gmap->img)
-		return (perror("Error creating MLX image"));
+		return (perror("Error creating MLX image"), 1);
 	ft_memset(gmap->img->pixels, BACKGROUND_COLOR, gmap->img->width
 		* gmap->img->height * sizeof(int32_t));
 	i = 0;
@@ -125,4 +125,5 @@ void	render_map(t_map *map, t_gmap *gmap)
 			++xy[1];
 	}
 	clean_map(map);
+	return (0);
 }

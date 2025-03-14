@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:51:43 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/13 20:54:37 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/14 16:05:20 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	draw_line_h_loop(int32_t *delta, int dir, double *p0,
 		++i;
 	}
 }
+
 /**
  * @brief Draws a horizontal line between two points on an image.
  *

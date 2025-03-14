@@ -7,7 +7,7 @@ valgrind --leak-check=full \
          --log-file=valgrind_full.log \
          --verbose \
          ./src/main \
-         maps/test_maps/42.fdf
+         maps/test_maps/43.fdf
 
 # Extract all valgrind entries with context
 grep -B 10 "main.c:" valgrind_full.log > temp.log

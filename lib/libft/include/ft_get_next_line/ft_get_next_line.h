@@ -6,7 +6,7 @@
 /*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 13:46:34 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/02/05 21:24:43 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:35:57 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #  define BUFFER_SIZE 50
 # endif
 
-# include "../libft.h"
+# include "libft.h"
 # include <stdlib.h>
 # include <unistd.h>
 

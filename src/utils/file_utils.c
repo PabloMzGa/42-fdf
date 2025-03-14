@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 19:05:27 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/03/11 13:58:06 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/14 16:54:08 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static t_map	*process_line(char *line, t_map *map, int y, size_t *map_size)
 	x = 0;
 	tokens = ft_splitm(line, " \n");
 	if (!tokens)
-		return (perror("Error splitting line"), NULL);
+		return (clean_map(map), perror("Error splitting line"), NULL);
 	t_count = ft_matrix_len((void **)tokens);
 	map->vertices = ft_realloc(map->vertices, (*map_size) * sizeof(double *),
 			((*map_size) + t_count) * sizeof(double *));
@@ -104,6 +104,8 @@ static t_map	*process_file(int fd, t_map *map)
 	{
 		map = process_line(line, map, y, &map_size);
 		free(line);
+		if (!map)
+			return (close(fd), NULL);
 		line = ft_get_next_line(fd);
 		++y;
 	}
@@ -127,5 +129,7 @@ t_map	*read_map(char *path)
 		return (perror("Error allocating vertices array"), NULL);
 	map->size_x = 0;
 	map->size_y = 0;
-	return (process_file(fd, map));
+	map = process_file(fd, map);
+	close(fd);
+	return (map);
 }
