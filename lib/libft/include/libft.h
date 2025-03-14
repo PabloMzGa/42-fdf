@@ -6,7 +6,7 @@
 /*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 18:17:00 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/03/14 16:38:57 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:48:29 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 # define LIBFT_H
 
+/**
+ * float.h tiene un bug en la norminette porque es el nombre de un tipo
+ * y la norminette lo interpreta de otra forma:
+ * https://github.com/42School/norminette/issues/470
+ */
 # include <float.h>
 # include <limits.h>
 # include <math.h>
@@ -24,7 +29,6 @@
 # include <unistd.h>
 # include "ft_get_next_line/ft_get_next_line.h"
 # include "ft_printf/ft_printf.h"
-
 /**
  * @brief A structure representing a node in a linked list.
  *

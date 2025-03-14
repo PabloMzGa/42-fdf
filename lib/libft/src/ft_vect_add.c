@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vect_add.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:52:10 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/13 20:22:05 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/14 17:37:41 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 double	*ft_vect_add(double *v1, double *v2, size_t d)
 {
-	size_t		i;
+	size_t	i;
 	double	*result;
 
 	if (!v1 || !v2)

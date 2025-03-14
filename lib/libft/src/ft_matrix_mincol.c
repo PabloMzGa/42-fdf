@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_matrix_mincol.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:17:34 by pablo             #+#    #+#             */
-/*   Updated: 2025/02/10 21:22:38 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/14 17:37:05 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ double	ft_matrix_mincol(double **array, size_t size, size_t pos)
 	size_t	i;
 
 	min = DBL_MAX;
-
 	i = 0;
 	while (i < size)
 	{
