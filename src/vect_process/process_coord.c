@@ -6,13 +6,12 @@
 /*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:28:36 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/03/14 17:30:01 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:17:42 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "libft.h"
-#include <stdio.h>
 
 t_map	*project_map(t_map *map, double *normal, double *p_point)
 {

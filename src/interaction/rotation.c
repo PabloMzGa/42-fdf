@@ -6,12 +6,11 @@
 /*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 13:27:12 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/14 17:28:55 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:18:13 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
 /**
  * @brief Rotates the 3D points in the given gmap structure around the Z-axis.

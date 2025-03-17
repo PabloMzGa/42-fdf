@@ -20,7 +20,7 @@
 # include "MLX42/MLX42_Int.h"
 
 # ifndef M_PI
-#  define M_PI (3.14159265358979323846264338327950288)
+#  define M_PI 3.14159265358979323846264338327950288
 # endif
 
 /**
@@ -50,6 +50,7 @@
 # define ROT_DEG 0.5
 # define WIDTH 1920
 # define HEIGHT 1080
+
 typedef struct s_map
 {
 	double		**vertices;
@@ -203,7 +204,7 @@ double			*set_p_point(t_map *map);
  * @param gmap Double pointer to the global map structure containing the MLX
  *             image and context.
  */
-int	render_map(t_map *map, t_gmap *gmap);
+int				render_map(t_map *map, t_gmap *gmap);
 
 /**
   * @brief Draws a line between two points on an image.
@@ -223,7 +224,7 @@ int	render_map(t_map *map, t_gmap *gmap);
  * @note If any of the coordinates exceed INT32_MAX, an error message is printed
  *       and the function returns without drawing the line.
  */
-void	draw_line(double p0[], double p1[], mlx_image_t *img);
+void			draw_line(double p0[], double p1[], mlx_image_t *img);
 
 //////////////////// HELPERS //////////////////////////
 /**
@@ -236,7 +237,7 @@ void	draw_line(double p0[], double p1[], mlx_image_t *img);
  * @param x1 Pointer to the x coordinate of the second point.
  * @param y1 Pointer to the y coordinate of the second point.
  */
-void	invert_coords(double *x0, double *y0, double *x1, double *y1);
+void			invert_coords(double *x0, double *y0, double *x1, double *y1);
 
 /**
  * @brief - Calculates the center coordinates of a given map.
@@ -308,7 +309,6 @@ void			clean_gmap(t_gmap *smap);
  *                      vertices to be freed.
  */
 void			clean_porjected_map(size_t i, t_map *projected_map);
-
 
 //////////////////// WRAPPERS //////////////////////
 

@@ -6,14 +6,12 @@
 /*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 12:30:14 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/03/14 17:29:56 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:17:29 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "libft.h"
-#include <math.h>
-#include <stdio.h>
 
 t_gmap	*gmap_init(char *path)
 {
@@ -59,7 +57,7 @@ int	main(int argc, char **argv)
 	if (!initial_2dmap)
 		return (clean_gmap(gmap), 1);
 	mlx_set_setting(MLX_DECORATED, 1);
-	mlx = mlx_init(WIDTH, HEIGHT, "fdf_test", 0);
+	mlx = mlx_init(WIDTH, HEIGHT, "fdf", 0);
 	gmap->mlx = mlx;
 	if (render_map(initial_2dmap, gmap) != 0)
 		exit_fdf(gmap, mlx);
