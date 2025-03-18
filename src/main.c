@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 12:30:14 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/03/13 19:59:58 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/18 12:45:31 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int argc, char **argv)
 	render_map(initial_2dmap, gmap);
 	mlx_key_hook(mlx, &exit_keyhook, mlx);
 	mlx_loop_hook(mlx, &rotate_wrapper, gmap);
+	mlx_scroll_hook(mlx, &zoom_wrapper, gmap);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	clean_gmap(gmap);

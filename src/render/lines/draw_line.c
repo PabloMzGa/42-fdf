@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:51:43 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/13 20:54:37 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/18 12:44:14 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void	draw_line_h_loop(int32_t *delta, int dir, double *p0,
 	i = 0;
 	while (i < delta[0] + 1)
 	{
-		mlx_put_pixel(img, p0[0] + i, y, GRAPH_COLOR);
+		if (is_within_bounds(p0[0] + i, y, img))
+			mlx_put_pixel(img, p0[0] + i, y, GRAPH_COLOR);
 		if (p >= 0)
 		{
 			y += dir;
@@ -108,7 +109,8 @@ static void	draw_line_v_loop(int32_t delta[], int dir, double *p0,
 	i = 0;
 	while (i < delta[1] + 1)
 	{
-		mlx_put_pixel(img, x, p0[1] + i, GRAPH_COLOR);
+		if (is_within_bounds(x, p0[1] + i, img))
+			mlx_put_pixel(img, x, p0[1] + i, GRAPH_COLOR);
 		if (p >= 0)
 		{
 			x += dir;

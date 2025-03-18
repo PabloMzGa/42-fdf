@@ -13,9 +13,9 @@
 #ifndef FDF_H
 # define FDF_H
 
-# include "libft.h"
 # include <fcntl.h>
 # include <math.h>
+# include "libft.h"
 # include "MLX42/MLX42.h"
 # include "MLX42/MLX42_Int.h"
 
@@ -48,8 +48,14 @@
  * Define how much degrees the model should rotate every frame
  */
 # define ROT_DEG 1
+# define ZOOM 0.01
+
+# define MIN_SCALE 0.01
+# define MAX_SCALE 50
+
 # define WIDTH 1920
 # define HEIGHT 1080
+
 typedef struct s_map
 {
 	double		**vertices;
@@ -239,6 +245,20 @@ void	draw_line(double p0[], double p1[], mlx_image_t *img);
 void	invert_coords(double *x0, double *y0, double *x1, double *y1);
 
 /**
+ * @brief Checks if the given coordinates are within the bounds of the image.
+ *
+ * This function determines whether the specified (x, y) coordinates fall within
+ * the dimensions of the provided image. It returns true if the coordinates are
+ * within the bounds, and false otherwise.
+ *
+ * @param x The x-coordinate to check.
+ * @param y The y-coordinate to check.
+ * @param img A pointer to the image structure containing width and height.
+ * @return true if the coordinates are within the image bounds, false otherwise.
+ */
+bool	is_within_bounds(int32_t x, int32_t y, mlx_image_t *img);
+
+/**
  * @brief - Calculates the center coordinates of a given map.
  *
  * This function allocates memory for a 3-element array of doubles and
@@ -309,5 +329,7 @@ void			clean_gmap(t_gmap *smap);
  *              t_gmap type and passed to the rotate function.
  */
 void			rotate_wrapper(void *param);
+
+void 			zoom_wrapper (double x_delta, double y_delta, void *param);
 
 #endif
