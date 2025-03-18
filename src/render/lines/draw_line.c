@@ -6,7 +6,7 @@
 /*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 18:51:43 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/18 12:44:14 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/18 13:01:39 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	draw_line_h_loop(int32_t *delta, int dir, double *p0,
 		++i;
 	}
 }
+
 /**
  * @brief Draws a horizontal line between two points on an image.
  *

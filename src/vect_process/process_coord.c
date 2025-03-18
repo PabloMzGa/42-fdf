@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   process_coord.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:28:36 by pabmart2          #+#    #+#             */
-/*   Updated: 2025/03/13 20:04:47 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/17 19:17:42 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "libft.h"
-#include <stdio.h>
 
 t_map	*project_map(t_map *map, double *normal, double *p_point)
 {
@@ -34,7 +33,8 @@ t_map	*project_map(t_map *map, double *normal, double *p_point)
 		projected_map->vertices[i] = ft_vect_ortproj(map->vertices[i], normal,
 				p_point, 3);
 		if (!projected_map->vertices[i])
-			return (perror("Error projecting vector vector"), NULL);
+			return (clean_porjected_map(i, projected_map),
+				perror("Error projecting vector vector"), NULL);
 		++i;
 	}
 	projected_map->size_x = map->size_x;
@@ -124,8 +124,8 @@ static void	map2d_to_screen(double **map2d, t_gmap *gmap)
 	set_offset(uv_min, uv_offset);
 	while (i < map_size)
 	{
-		map2d[i][0] = (map2d[i][0] + uv_offset[0]) * gmap->scale_factor
-			+ (WIDTH - uv_range[0] * gmap->scale_factor) / 2;
+		map2d[i][0] = (map2d[i][0] + uv_offset[0]) * gmap->scale_factor + (WIDTH
+				- uv_range[0] * gmap->scale_factor) / 2;
 		map2d[i][1] = (HEIGHT - 1) - ((map2d[i][1] + uv_offset[1])
 				* gmap->scale_factor + (HEIGHT - uv_range[1]
 					* gmap->scale_factor) / 2);
@@ -143,7 +143,11 @@ t_map	*set_2d_map(t_gmap *gmap)
 		return (NULL);
 	normal = set_camera_normal(gmap);
 	projected_map = project_map(gmap->map, normal, gmap->p_point);
+	if (!projected_map)
+		return (free(normal), NULL);
 	projected_2d = create_2d_map(projected_map, normal, gmap->p_point);
+	if (!projected_2d)
+		return (free(normal), clean_map(projected_map), NULL);
 	map2d_to_screen(projected_2d->vertices, gmap);
 	clean_map(projected_map);
 	free(normal);

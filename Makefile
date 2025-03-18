@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pablo <pablo@student.42.fr>                +#+  +:+       +#+         #
+#    By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:34:30 by pabmart2          #+#    #+#              #
-#    Updated: 2025/03/13 20:52:57 by pablo            ###   ########.fr        #
+#    Updated: 2025/03/14 17:31:53 by pabmart2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ clean:
 
 fclean: clean
 	@rm -f $(BUILD_DIR)/$(NAME)
+	@$(MAKE) -C lib/libft fclean
 	@echo "\033[31m$(NAME) removed\033[0m"
 
 re: fclean

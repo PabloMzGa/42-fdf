@@ -20,7 +20,7 @@
 # include "MLX42/MLX42_Int.h"
 
 # ifndef M_PI
-#  define M_PI (3.14159265358979323846264338327950288)
+#  define M_PI 3.14159265358979323846264338327950288
 # endif
 
 /**
@@ -31,7 +31,7 @@
 /**
  * Color of the graph
  */
-# define GRAPH_COLOR 0xFFFFFFFF
+# define GRAPH_COLOR 0xFFFFFFF5
 /**
  * Background color of  the graph
  */
@@ -39,7 +39,7 @@
 /**
  * Multiplier for the Z coordenate
  */
-# define Z_MULTIPLIER 2
+# define Z_MULTIPLIER 1
 /**
  * The space between each point in XY
  */
@@ -209,7 +209,7 @@ double			*set_p_point(t_map *map);
  * @param gmap Double pointer to the global map structure containing the MLX
  *             image and context.
  */
-void	render_map(t_map *map, t_gmap *gmap);
+int				render_map(t_map *map, t_gmap *gmap);
 
 /**
   * @brief Draws a line between two points on an image.
@@ -229,7 +229,7 @@ void	render_map(t_map *map, t_gmap *gmap);
  * @note If any of the coordinates exceed INT32_MAX, an error message is printed
  *       and the function returns without drawing the line.
  */
-void	draw_line(double p0[], double p1[], mlx_image_t *img);
+void			draw_line(double p0[], double p1[], mlx_image_t *img);
 
 //////////////////// HELPERS //////////////////////////
 /**
@@ -315,6 +315,19 @@ void			clean_map(t_map *map);
  */
 void			clean_gmap(t_gmap *smap);
 
+/**
+ * @brief Frees the memory allocated for the projected vertices and the
+ * projected map.
+ *
+ * This function iterates through the projected vertices array in reverse
+ * order, freeing each vertex. After all vertices are freed, it frees the
+ * array itself and finally the projected map structure.
+ *
+ * @param i The number of vertices in the projected map.
+ * @param projected_map Pointer to the projected map structure containing the
+ *                      vertices to be freed.
+ */
+void			clean_porjected_map(size_t i, t_map *projected_map);
 
 //////////////////// WRAPPERS //////////////////////
 

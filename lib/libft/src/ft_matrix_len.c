@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_matrix_len.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 13:17:34 by pablo             #+#    #+#             */
-/*   Updated: 2025/02/11 21:17:51 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/14 17:37:01 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ size_t	ft_matrix_len(void **array)
 		++i;
 	if (i > 0)
 		return (i);
-	return(0);
+	return (0);
 }
