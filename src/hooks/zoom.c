@@ -6,7 +6,7 @@
 /*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:12:58 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/20 12:29:04 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:34:36 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
  */
 static void	zoom(double y_delta, t_gmap *gmap)
 {
-
 	gmap->scale_factor += y_delta * ZOOM * gmap->scale_factor;
 	if (gmap->scale_factor < MIN_SCALE)
 		gmap->scale_factor = MIN_SCALE;
