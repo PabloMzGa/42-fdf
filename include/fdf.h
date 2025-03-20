@@ -15,6 +15,7 @@
 
 # include <fcntl.h>
 # include <math.h>
+# include <stdio.h>
 # include "libft.h"
 # include "MLX42/MLX42.h"
 # include "MLX42/MLX42_Int.h"
@@ -242,7 +243,7 @@ void			draw_line(double p0[], double p1[], mlx_image_t *img);
  * @param x1 Pointer to the x coordinate of the second point.
  * @param y1 Pointer to the y coordinate of the second point.
  */
-void	invert_coords(double *x0, double *y0, double *x1, double *y1);
+void			invert_coords(double *x0, double *y0, double *x1, double *y1);
 
 /**
  * @brief Checks if the given coordinates are within the bounds of the image.
@@ -256,7 +257,7 @@ void	invert_coords(double *x0, double *y0, double *x1, double *y1);
  * @param img A pointer to the image structure containing width and height.
  * @return true if the coordinates are within the image bounds, false otherwise.
  */
-bool	is_within_bounds(int32_t x, int32_t y, mlx_image_t *img);
+bool			is_within_bounds(int32_t x, int32_t y, mlx_image_t *img);
 
 /**
  * @brief - Calculates the center coordinates of a given map.
@@ -353,6 +354,6 @@ void			rotate_wrapper(void *param);
  * @param param A void pointer to the parameter that will be cast to a
  *              t_gmap type and passed to the rotate function.
  */
-void 			zoom_wrapper (double x_delta, double y_delta, void *param);
+void			zoom_wrapper(double x_delta, double y_delta, void *param);
 
 #endif
