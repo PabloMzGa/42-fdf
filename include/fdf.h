@@ -343,6 +343,16 @@ void			clean_porjected_map(size_t i, t_map *projected_map);
  */
 void			rotate_wrapper(void *param);
 
+/**
+ * @brief Wrapper function to perform zoom on a given map.
+ *
+ * This function serves as a wrapper to the zoom function, casting the
+ * provided parameter to the appropriate type and passing it to the rotate
+ * function.
+ *
+ * @param param A void pointer to the parameter that will be cast to a
+ *              t_gmap type and passed to the rotate function.
+ */
 void 			zoom_wrapper (double x_delta, double y_delta, void *param);
 
 #endif

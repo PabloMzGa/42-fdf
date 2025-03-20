@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   zoom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 12:12:58 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/18 12:54:43 by pablo            ###   ########.fr       */
+/*   Updated: 2025/03/20 12:29:04 by pabmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
  */
 static void	zoom(double y_delta, t_gmap *gmap)
 {
-	t_map	*map_2d;
 
 	gmap->scale_factor += y_delta * ZOOM * gmap->scale_factor;
 	if (gmap->scale_factor < MIN_SCALE)
@@ -39,5 +38,6 @@ static void	zoom(double y_delta, t_gmap *gmap)
 
 void	zoom_wrapper(double x_delta, double y_delta, void *param)
 {
+	(void)x_delta;
 	zoom(y_delta, (t_gmap *)param);
 }

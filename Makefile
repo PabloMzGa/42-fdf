@@ -6,7 +6,7 @@
 #    By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 14:34:30 by pabmart2          #+#    #+#              #
-#    Updated: 2025/03/14 17:31:53 by pabmart2         ###   ########.fr        #
+#    Updated: 2025/03/20 12:27:46 by pabmart2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,9 @@ NAME = fdf
 
 SRC = \
 	src/main.c \
-	src/hooks/exit_keyhook.c \
-	src/interaction/rotation.c \
+	src/hooks/exit.c \
+	src/hooks/rotation.c \
+	src/hooks/zoom.c \
 	src/render/camera.c \
 	src/render/render.c \
 	src/render/lines/draw_line_helper.c \
@@ -71,7 +72,7 @@ $(NAME): libft $(OBJ)
 	@echo "\033[32m\n¡$(NAME) compiled! \
 	ᕦ(\033[36m⌐■\033[32m_\033[36m■\033[32m)ᕤ\n"
 
-$(OBJ_DIR)/%.o: %.c
+$(OBJ) : $(OBJ_DIR)/%.o : %.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 	@echo "\033[34mCompiling: \033[0m$<"
