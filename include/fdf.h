@@ -40,7 +40,7 @@
 /**
  * Multiplier for the Z coordenate
  */
-# define Z_MULTIPLIER 1
+# define Z_MULTIPLIER 5
 /**
  * The space between each point in XY
  */

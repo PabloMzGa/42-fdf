@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pabmart2 <pabmart2@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: pablo <pablo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:21:11 by pablo             #+#    #+#             */
-/*   Updated: 2025/03/14 17:22:28 by pabmart2         ###   ########.fr       */
+/*   Updated: 2025/03/23 23:23:54 by pablo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ void	clean_gmap(t_gmap *gmap)
 {
 	clean_map(gmap->map);
 	if (gmap->p_point)
-		;
-	free(gmap->p_point);
-	if (gmap->p_point)
-		;
-	free(gmap->center);
+		free(gmap->p_point);
+	if (gmap->center)
+		free(gmap->center);
 	free(gmap);
 }
 
